@@ -5,6 +5,7 @@ class Customer {
     val email: String = ""
     val password: String = ""
     var saldo: Double = 0.0
+    var appointments: MutableList<String> = mutableListOf()
 
 
 
