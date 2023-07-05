@@ -9,7 +9,4 @@ class Appointment {
     var doneOK: Boolean = false
 
 
-    fun bookAppointment(){
-        //TODO
-    }
 }

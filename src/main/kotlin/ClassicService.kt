@@ -1,4 +1,4 @@
-class ClassicService {
+open class ClassicService {
     val id: String = ""
     val category: String = ""    //evtl ENUM
     val name: String = ""
@@ -7,6 +7,10 @@ class ClassicService {
     val duration: Int = 0   // in minutes !!!
 
 
+    fun bookAppointment(){
+        //TODO
+        // kann evtl zu KLasse Appointment.kt
+    }
 
 
 }
