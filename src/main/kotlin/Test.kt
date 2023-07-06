@@ -1,17 +1,31 @@
 import java.time.LocalDate
 
 fun main(){
+// Chronologisch - jüngster Test ganz oben:
 
-    // Test Soap:
 
 
-    // Test BP_NailPolish
-    NP_01_01.showEssentials()
-    NP_01_02.showDetails()
 
 
     /*
-    //Tests Database in utils.kt   check[x]
+// Test Soap:
+    println("Seifen:")
+    Soap_01.showEssentials()
+    Soap_03.showDetails()
+
+
+// Test BP_NailPolish
+    println("Nagellacke:")
+    NP_01_01.showEssentials()   // Überschriebene eigene Methode, funzt perfekt.
+    NP_01_02.showDetails()      //Geerbte Methode: Keine Probleme bei fehlenden Variablen !!, macht einfach weiter mit leerer Zeile - faszinierend !!!
+    println("Description: ${NP_01_03.description}")     // WAHNSINN !!! Er stürtzt nicht ab, obwohl die Variable description fehlt (STOPP, sie fehlt nicht, sie wird default vom Konstruktor übergeben mit Initialwert: "" ) Jetzt richtig kapiert, darum experimentiere ich lieber länger ... ich will genau wissen was passiert, dazu muss ich dauernd irgendwelchen Parameter testweise ändern - und ggf. anpassen - lieber jetzt als später wenn da 1000 Zeilen Code sind
+
+     */
+
+
+
+    /*
+//Tests Database in utils.kt   check[x]
     BP_01_01.showDetails()
     println()
     BP_02_04.showDetails()
@@ -33,18 +47,20 @@ fun main(){
 
      */
 
-/*
-    //var testCustomer: Customer = Customer(1,"Alfred Müller", "Musterstr. 11, 12345 Musterstadt", "musterMail@gmail.com", "BallaBalla123")
-    var testCustomer: Customer = Customer()
-    println(testCustomer)
-    println(testCustomer.name)
-    println(testCustomer.adresse)
-    println(testCustomer.appointments)
+
+    // var testCustomer: Customer = Customer()
+    //var testCustomer: Customer = Customer(1, "Alfred Müller", "Hauptstr. 23, 12345 Mustercity", "a.mueller@gmx.de", "abcd123", 0.0)
+    // 'testCustomer_01' ist nun in utils.kt - Pseudo_DB
+    println(testCustomer_01)
+    println(testCustomer_01.name)
+    println(testCustomer_01.adress)
+    println("Liste der Termine: ${testCustomer_01.appointments}")
+    println("Passwort: ${testCustomer_01.password}")
 
     val date: LocalDate = LocalDate.now()
     println(date)
 
- */
+
 
 
 }

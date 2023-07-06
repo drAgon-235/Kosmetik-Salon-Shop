@@ -22,6 +22,7 @@ class BP_NailPolish() : BeautyProduct() {
     }
 
 
+    // Eigene Show Methode:
     override fun showEssentials() {
         //println("- - - - - - - - - - - - - - - ")
         println("${brand} - ${name}")

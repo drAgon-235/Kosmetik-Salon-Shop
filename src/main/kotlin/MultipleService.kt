@@ -1,4 +1,4 @@
-class MultipleService  {
+class MultipleService() : ClassicService()  {
     val serviceVariats: Map<String, String> = mapOf()
     val variant: String = ""
 
