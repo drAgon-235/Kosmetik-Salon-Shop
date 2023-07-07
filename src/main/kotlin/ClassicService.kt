@@ -9,7 +9,7 @@ open class ClassicService() {
     var price: Double = 0.0
     var duration: Int = 0
 
-    // Konstruktor ohne duration (die wird bei Massagen individuell ausgewählt):
+    // Konstruktor ohne 'duration' (die wird bei Massagen individuell ausgewählt):
     constructor(id: String, category: String, name: String, description: String, price: Double) : this(){
         this.id = id
         this.category = category
@@ -18,7 +18,7 @@ open class ClassicService() {
         this.price = price
     }
 
-    // Konstruktor mit duration:
+    // Konstruktor mit 'duration':
     constructor(id: String, category: String, name: String, description: String, price: Double, duration: Int) : this(){
         this.id = id
         this.category = category

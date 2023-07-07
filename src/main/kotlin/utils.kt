@@ -1,14 +1,15 @@
 
 
-var passWordDB: MutableMap<String, String> = mutableMapOf(
-    "a.mueller@gmx.de" to "abc123",
-    "olga123@web.de" to "Kickerickie1234"
-)
 
 
 
-var testCustomer_01: Customer = Customer(1, "Olga Seitz", "Hauptstr. 23, 12345 Mustercity", "a.mueller@gmx.de", "abc123", 0.0)
-var testCustomer_02: Customer = Customer(2, "Johanna Sensimilja", "Erich-Fromm-Weg 7, 23456 Magnolienstadt", "olga123@web.de", "Kickerickie1234", 0.0 )
+
+var testCustomer_01: Customer = Customer(1, "Olga Mueller", "Hauptstr. 23, 12345 Mustercity", "o.mueller@gmx.de", "abc123", 0.0)
+var testCustomer_02: Customer = Customer(2, "Johanna Sensimilja", "Erich-Fromm-Weg 7, 23456 Magnolienstadt", "Joe123@web.de", "Kickerickie1234", 0.0 )
+var testCustomer_03: Customer = Customer(3,"Marijke van den Hutten", "Baumallee 52, 15890 Eisenhüttenstadt", "marHutten@yahoo.com", "huttenTutten789", 0.0)
+var testCustomer_04: Customer = Customer(4,"Yesim Keskinsoy", "Am Aubuckel 19, 36546 Obergartenhausen", "YesKes4576@alibaba.com", "MuNaHeDschin", 0.0)
+var testCustomer_05: Customer = Customer(5, "Erwin Przybilla", "Schweriner Weg 34, 04333 Leipzig", "epry_Diamond@gmail.com", "masturabiato12345", 0.0)
+
 
 
 // Pseudo_DB: ClassicProducts:

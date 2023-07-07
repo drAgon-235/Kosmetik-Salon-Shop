@@ -25,7 +25,7 @@ fun main(){
 
 
     /*
-//Tests Database in utils.kt   check[x]
+//Tests Database BeautyProducts in utils.kt   check[x]
     BP_01_01.showDetails()
     println()
     BP_02_04.showDetails()
