@@ -1,21 +1,20 @@
-class BP_Soap() : BeautyProduct() {
+class Creme() : BeautyProduct() {
 
-    var fragrance: String = ""
+    var volume: Int = 0    // in ml (Milliliter)
 
-    // Konstruktor ohne 'description' (die braucht eine Seife nicht, die hat 'fragrance'):
     constructor(
         category: Category,
         name: String,
         brand: Brands,
         price: Double,
-        fragrance: String,
+        volume: Int,
         inStock: Int
     ) : this() {
         this.category = category
         this.name = name
         this.brand = brand
         this.price = price
-        this.fragrance = fragrance
+        this.volume = volume
         this.inStock = inStock
     }
 
@@ -23,11 +22,10 @@ class BP_Soap() : BeautyProduct() {
     override fun showEssentials() {
         //println("- - - - - - - - - - - - - - - ")
         println("${this.brand} - ${this.name}")
-        println("Duft: ${this.fragrance}")
+        println("Volume: ${this.volume} ml")
         println("Preis: ${this.price} €")
         println("Auf Lager: ${this.inStock} Stück")
         println("- - - - - - - - - - - - - - - ")
     }
-
 
 }

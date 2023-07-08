@@ -89,6 +89,11 @@ fun main() {
     if (accLogin.logged){
         kunde.homeMenue(shoppingCart)
 
+        println("Nun lösche ich die Einkaufskiste:")
+        shoppingCart.flushShoppingCart()
+        println()
+        println("Nun zeige ich die leere Liste mit der Funktion showShoppingCart():")
+        shoppingCart.showShoppingCart()
     } else {
         println("Zutritt aus Sicherheitsgründen für 1 Stunde gesperrt !!!")
     }

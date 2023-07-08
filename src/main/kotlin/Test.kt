@@ -7,6 +7,8 @@ fun main(){
 
 
 
+
+
     /*
 // Test Soap:
     println("Seifen:")
@@ -47,7 +49,7 @@ fun main(){
 
      */
 
-
+/*
     // var testCustomer: Customer = Customer()
     //var testCustomer: Customer = Customer(1, "Alfred Müller", "Hauptstr. 23, 12345 Mustercity", "a.mueller@gmx.de", "abcd123", 0.0)
     // 'testCustomer_01' ist nun in utils.kt - Pseudo_DB
@@ -59,6 +61,8 @@ fun main(){
 
     val date: LocalDate = LocalDate.now()
     println(date)
+
+ */
 
 
 

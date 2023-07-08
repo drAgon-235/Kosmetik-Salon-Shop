@@ -1,3 +1,5 @@
-enum class Brands {
-    AFON, NIFEA,
+enum class Brands(name: String) {
+    AFON("AFON"),
+    NIFEA("NIFEA"),
+    NONAME("")
 }
