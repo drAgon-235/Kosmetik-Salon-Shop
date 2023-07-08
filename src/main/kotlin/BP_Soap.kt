@@ -4,7 +4,6 @@ class BP_Soap() : BeautyProduct() {
 
     // Konstruktor ohne 'description' (die braucht eine Seife nicht, die hat 'fragrance'):
     constructor(
-        id: String,
         category: String,
         name: String,
         brand: String,
@@ -12,7 +11,6 @@ class BP_Soap() : BeautyProduct() {
         fragrance: String,
         inStock: Int
     ) : this() {
-        this.id = id
         this.category = category
         this.name = name
         this.brand = brand
@@ -31,5 +29,8 @@ class BP_Soap() : BeautyProduct() {
         println("- - - - - - - - - - - - - - - ")
     }
 
+    fun putToShoppingCart(){
+
+    }
 
 }

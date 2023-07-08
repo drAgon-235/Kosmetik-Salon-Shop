@@ -1,7 +1,7 @@
 import java.lang.ref.PhantomReference
 
 open class BeautyProduct() {
-    var id: String = ""
+    var id: Int = 0
     var category: String = ""
     var name: String = ""
     var brand: String = ""
@@ -10,8 +10,8 @@ open class BeautyProduct() {
     var inStock: Int = 0
 
     // Konstruktor ohne 'description' (das braucht ein Nagellack nicht, der hat 'colour'):
-    constructor(id: String, category: String, name: String, brand: String, price: Double, inStock: Int) : this(){
-        this.id = id
+    constructor( category: String, name: String, brand: String, price: Double, inStock: Int) : this(){
+
         this.category = category
         this.name = name
         this.brand = brand
@@ -20,8 +20,8 @@ open class BeautyProduct() {
     }
 
     // Konstruktor mit allen variablen im Parameter:
-    constructor(id: String, category: String, name: String, brand: String, description: String, price: Double, inStock: Int) : this(){
-        this.id = id
+    constructor(category: String, name: String, brand: String, description: String, price: Double, inStock: Int) : this(){
+
         this.category = category
         this.name = name
         this.brand = brand
@@ -40,7 +40,7 @@ open class BeautyProduct() {
 
 
     fun showDetails(){
-        println("- - - - - - - - - - - - - - - ")
+        //println("- - - - - - - - - - - - - - - ")
         println("${this.brand} - ${this.name}")
         println("Kategorie: ${this.category}")
         println("${this.description}")
