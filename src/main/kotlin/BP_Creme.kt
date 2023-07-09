@@ -1,4 +1,4 @@
-class Creme() : BeautyProduct() {
+class BP_Creme() : BeautyProduct() {
 
     var volume: Int = 0    // in ml (Milliliter)
 
@@ -22,7 +22,7 @@ class Creme() : BeautyProduct() {
     override fun showEssentials() {
         //println("- - - - - - - - - - - - - - - ")
         println("${this.brand} - ${this.name}")
-        println("Volume: ${this.volume} ml")
+        println("Inhalt: ${this.volume} ml")
         println("Preis: ${this.price} €")
         println("Auf Lager: ${this.inStock} Stück")
         println("- - - - - - - - - - - - - - - ")

@@ -9,70 +9,24 @@ var customersList: MutableList<Customer> = mutableListOf(
     testCustomer_04,
     testCustomer_05
 )
-/*
-var allBPs: MutableList<BeautyProduct> = mutableListOf(
-    // Sortiment von "AFON":
-    BP_01_01,
-    BP_01_02,
-    BP_01_03,
-    BP_01_04,
-    BP_01_05,
-    BP_01_06,
-    BP_01_07,
-    // Sortiment von "NIFEA":
-    BP_02_01,
-    BP_02_02,
-    BP_02_03,
-    BP_02_04,
-    BP_02_05,
-    BP_02_06,
-    BP_02_07,
-    // Sortiment von BP_Nailpolishes
-    NP_01_01,
-    NP_01_02,
-    NP_01_03,
-    NP_01_04,
-    // Sortiment von BP_Soaps
-    Soap_01,
-    Soap_02,
-    Soap_03,
-    Soap_04,
 
+var abstractProducts: MutableList<BeautyProduct> = mutableListOf(
+    mixed_01, mixed_02, mixed_03, mixed_04, mixed_05, mixed_06
 )
-
- */
-// Produktlisten:
-var allClassicBPs: MutableList<BeautyProduct> = mutableListOf(
-    // Sortiment von "AFON":
-    BP_01_01,
-    BP_01_02,
-    BP_01_03,
-    BP_01_04,
-    BP_01_05,
-    BP_01_06,
-    BP_01_07,
-    // Sortiment von "NIFEA":
-    BP_02_01,
-    BP_02_02,
-    BP_02_03,
-    BP_02_04,
-    BP_02_05,
-    BP_02_06,
-    BP_02_07,
+var soaps: MutableList<BeautyProduct> = mutableListOf(
+    Soap_01, Soap_02, Soap_03, Soap_04, Soap_05, Soap_06, Soap_07, Soap_08, Soap_09, Soap_10, Soap_11, Soap_12, Soap_13, Soap_14, Soap_14, Soap_15, Soap_16
 )
-var allNailPolishes: MutableList<BeautyProduct> = mutableListOf(
-    // Sortiment von BP_Nailpolishes
-    NP_01_01,
-    NP_01_02,
-    NP_01_03,
-    NP_01_04,
+var cremes: MutableList<BeautyProduct> = mutableListOf(
+    Cr_01, Cr_02, Cr_03, Cr_04, Cr_05, Cr_06, Cr_07, Cr_08, Cr_09, Cr_10, Cr_11, Cr_12, Cr_13, Cr_14, Cr_15, Cr_16
 )
-var allSoaps: MutableList<BeautyProduct> = mutableListOf(
-    // Sortiment von BP_Soaps
-    Soap_01,
-    Soap_02,
-    Soap_03,
-    Soap_04,
+var peelings: MutableList<BeautyProduct> = mutableListOf(
+    Peel_01, Peel_02, Peel_03, Peel_04, Peel_05, Peel_06, Peel_07, Peel_08, Peel_09, Peel_10, Peel_11, Peel_12, Peel_13
+)
+var nailPolishes: MutableList<BeautyProduct> = mutableListOf(
+    NP_01, NP_02, NP_03, NP_04, NP_05, NP_06, NP_07, NP_08, NP_09, NP_10, NP_11, NP_12
+)
+var bathAddits: MutableList<BeautyProduct> = mutableListOf(
+    BA_01, BA_02, BA_03, BA_04, BA_05, BA_06, BA_07, BA_08, BA_09, BA_10, BA_11, BA_12, BA_13, BA_14, BA_15, BA_16, BA_17, BA_18, BA_19, BA_20
 )
 
 

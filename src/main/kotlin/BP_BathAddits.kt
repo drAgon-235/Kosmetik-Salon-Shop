@@ -1,34 +1,33 @@
-class BP_Soap() : BeautyProduct() {
+class BP_BathAddits() : BeautyProduct() {
 
-    var fragrance: String = ""
-    var volume: Int = 0             // in ml
+    var volume: Int = 0    // in ml (Milliliter)
+    var weight: Int = 0    // in g  (Gramm)
 
-    // Konstruktor ohne 'description' (die braucht eine Seife nicht, die hat 'fragrance'):
     constructor(
         category: Category,
         name: String,
         brand: Brands,
         price: Double,
-        fragrance: String,
         volume: Int,
+        weight: Int,
         inStock: Int
     ) : this() {
         this.category = category
         this.name = name
         this.brand = brand
         this.price = price
-        this.fragrance = fragrance
         this.volume = volume
+        this.weight = weight
         this.inStock = inStock
     }
 
-    // Eigene Show Methode:
     override fun showEssentials() {
         //println("- - - - - - - - - - - - - - - ")
         println("${this.brand} - ${this.name}")
+        if (this.weight != 0)
+            println("Gewicht Netto: ${this.weight} g")
         if (this.volume != 0)
             println("Inhalt: ${this.volume} ml")
-        println("Duft: ${this.fragrance}")
         println("Preis: ${this.price} €")
         println("Auf Lager: ${this.inStock} Stück")
         println("- - - - - - - - - - - - - - - ")
