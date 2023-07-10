@@ -1,15 +1,9 @@
 
 
 
-// Liste mit Bestandskunden: (mutable, flexibel und bearbeitbar)
-var customersList: MutableList<Customer> = mutableListOf(
-    testCustomer_01,
-    testCustomer_02,
-    testCustomer_03,
-    testCustomer_04,
-    testCustomer_05
-)
 
+
+// Produktlisten:
 var abstractProducts: MutableList<BeautyProduct> = mutableListOf(
     mixed_01, mixed_02, mixed_03, mixed_04, mixed_05, mixed_06
 )
@@ -30,6 +24,22 @@ var bathAddits: MutableList<BeautyProduct> = mutableListOf(
 )
 
 
+// Es werden nur die zwei folgenden Listen beutzt:
+// alle Produkte (Eine Liste von Listen):
+var allBPs: MutableList<MutableList<BeautyProduct>> = mutableListOf(
+    abstractProducts, soaps, cremes, peelings, nailPolishes, bathAddits
+)
+
+// Liste mit Bestandskunden: (mutable, flexibel und bearbeitbar)
+var customersList: MutableList<Customer> = mutableListOf(
+    testCustomer_01,
+    testCustomer_02,
+    testCustomer_03,
+    testCustomer_04,
+    testCustomer_05
+)
+
+
 fun main() {
 
     var accLogin = Account()
@@ -41,16 +51,39 @@ fun main() {
     var shoppingCart: ShoppingCart = ShoppingCart()
 
     if (accLogin.logged){
-        kunde.homeMenue(shoppingCart)
+        homeMenue(shoppingCart, kunde)
 
+        println()
+        println("Einkaufskiste nochmal zeigen:")
+        shoppingCart.showShoppingCart(kunde)
         println("Nun lösche ich die Einkaufskiste:")
         shoppingCart.flushShoppingCart()
+        homeMenue(shoppingCart, kunde)
         println()
         println("Nun zeige ich die leere Liste mit der Funktion showShoppingCart():")
-        shoppingCart.showShoppingCart()
+        shoppingCart.showShoppingCart(kunde)
     } else {
         println("Zutritt aus Sicherheitsgründen für 1 Stunde gesperrt !!!")
     }
+}
 
+fun homeMenue(shoppingCart: ShoppingCart, kunde: Customer) {
+    println(
+        " - -- - -- -  Home - Menue - -- - -- - " +
+                "\n 1. Einkaufskorb " +
+                "\n 2. Alle Beauty Produkte " +
+                "\n 3. Alle Kategorien  " +
+                "\n 4. Mein Profil" +
+                "\n    Bitte Nr. eingeben: "
+    )
+    var mainMenue = readln()
+
+    when (mainMenue) {
+        "1" -> shoppingCart.showShoppingCart(kunde)
+        "2" -> kunde.chooseBPAction(shoppingCart, kunde)
+        "3" -> kunde.chooseCategoryAction(shoppingCart, kunde)
+        "4" -> println("Mein Profil ausgewählt")
+        else -> println("Falsche Eingabe")
+    }
 }
 

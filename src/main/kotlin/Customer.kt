@@ -6,7 +6,6 @@ class Customer() {
     var password: String = ""
     var saldo: Double = 0.0
 
-    var appointments: MutableList<String> = mutableListOf()
     var purchases: MutableList<String> = mutableListOf()
 
     constructor(customNr: Int, name: String, adress: String, email: String, password: String, saldo: Double) : this() {
@@ -21,9 +20,9 @@ class Customer() {
 
 
     // My Basic Function for "LAST Choice" with actual ID for adding to ShoppingCart(wird mal chooseProduct(allProducts: MutableList<BeautyProduct>) heissen)
-    fun chooseProduct(productList: MutableList<BeautyProduct>, shoppingCart: ShoppingCart){
+    fun finalProductSelection(productList: MutableList<BeautyProduct>, shoppingCart: ShoppingCart, kunde: Customer){
         var localID: Int = 1
-        //Trick ich erstelle ir hier eine lokale Liste, um aus ihr die Bestellung rauszusuchen bei "w"
+        //Trick ich erstelle ir hier eine lokale Liste für die finale Artikelauswahl
         var interimList: MutableList<BeautyProduct> = mutableListOf()
         for (it in productList) {
             // Aktuelle ID für die interaktive Auswahl zum Warenkorb:
@@ -35,25 +34,91 @@ class Customer() {
 
         }
         println(
-            "Aktion auswählen: \n - Für sortieren nach Preis klicke 'p' " +
-                    "\n - Für alphabetisches Sortieren klicke 's' " +
-                    "\n - Um ein Produkt zum Einkaufskorb hinzuzufügen, klicke 'w' "
+            "Aktion auswählen: \n  1. Home" +
+                    "\n  2. Sortieren nach Preis klicke " +
+                    "\n  3. ein Produkt zum Einkaufskorb hinzuzufügen "
         )
         var inputAction = readln()
         when (inputAction) {
-            "p" -> println("Nach Preis Sortieren")
-            "s" -> println("Alphabetisch sortieren")
-            "w" -> {shoppingCart.addToShoppingCart(interimList) } // Hier wird abgefragt wieviel Exemplare des Produkts in den Einkaufswagen kommen und werden dann entsprechend hinzugefügt
+            "1" -> homeMenue(shoppingCart, kunde)
+            "2" -> println("Alphabetisch sortieren")
+            "3" -> {shoppingCart.addToShoppingCart(interimList, kunde) } // Hier wird abgefragt wieviel Exemplare des Produkts in den Einkaufswagen kommen und werden dann entsprechend hinzugefügt
             else -> println("Falsche Eingabe")
         }
         //return interimList
     }
 
+    fun filterCategory(category: Category): MutableList<BeautyProduct> {
+        var catList = mutableListOf<BeautyProduct>()
+        for (BPlist in allBPs){
+            for (it in BPlist){
+                if (it.category == category ){
+                    catList.add(it)
+                }
+            }
+        }
+        return catList
+    }
+
+    // Menue-Auswahl der Kategorie, benutzt die Funktion filterCategory( s.o. ), welche einen Category.ENUM als Parameter bekommt :
+    fun chooseCategoryAction(shoppingCart: ShoppingCart, kunde: Customer){
+        println(" - -- -- -- Kategorie-Auswahl -- -- -- - ")
+        println(
+            "Kategorie auswählen oder alle ansehen:" +
+                    "\n 1. Körper " +
+                    "\n 2. Gesicht " +
+                    "\n 3. Hände " +
+                    "\n 4. Füße " +
+                    "\n 5. Andere " +
+                    "\n 6. Home"
+        )
+        var inputCateg = readln()
+        when (inputCateg) {
+            "1" -> {
+                println(" - -- -  Alles für den Körper  - -- - ")
+                var bodyBPs: MutableList<BeautyProduct> = mutableListOf()
+                // Alle Produkte mit der Catekorie BODY (Körper):
+                bodyBPs = filterCategory(Category.BODY)
+                // Ein Produkt anhand der BestellNr. auswählen und zum Einkaufskorb hinzufügen:
+                finalProductSelection(bodyBPs, shoppingCart, kunde)
+            }
+            "2" -> {
+                println(" - -- -  Alles für das Gesicht  - -- - ")
+                var faceBPs: MutableList<BeautyProduct> = mutableListOf()
+                // Alle Produkte mit der Catekorie BODY (Körper):
+                faceBPs = filterCategory(Category.GESICHT)
+                // Ein Produkt anhand der BestellNr. auswählen und zum Einkaufskorb hinzufügen:
+                finalProductSelection(faceBPs, shoppingCart, kunde)
+            }
+            "3" -> {
+                println(" - -- -  Alles für die Hände  - -- - ")
+                var handsBPs: MutableList<BeautyProduct> = mutableListOf()
+                // Alle Produkte mit der Catekorie BODY (Körper):
+                handsBPs = filterCategory(Category.HAENDE)
+                // Ein Produkt anhand der BestellNr. auswählen und zum Einkaufskorb hinzufügen:
+                finalProductSelection(handsBPs, shoppingCart, kunde)
+            }
+            "4" -> {
+                println(" - -- -  Alles für die Füße  - -- - ")
+                var feetBPs: MutableList<BeautyProduct> = mutableListOf()
+                // Alle Produkte mit der Catekorie BODY (Körper):
+                feetBPs = filterCategory(Category.FUESSE)
+                // Ein Produkt anhand der BestellNr. auswählen und zum Einkaufskorb hinzufügen:
+                finalProductSelection(feetBPs, shoppingCart, kunde)
+            }
+            "5" -> {
+                println(" - -- -  Andere Wellness-Produkte  - -- - ")
+                finalProductSelection(abstractProducts, shoppingCart, kunde)
+            }
+
+            "6" -> homeMenue(shoppingCart, kunde)
+            else -> println("Falsche Eingabe")
+        }
+
+    }
 
 
-
-
-    fun chooseBPAction(shoppingCart: ShoppingCart) {
+    fun chooseBPAction(shoppingCart: ShoppingCart, kunde: Customer) {
         println("Beauty Produkte ausgewählt")
         println(
             "Kategorie auswählen oder alle ansehen:" +
@@ -63,57 +128,42 @@ class Customer() {
                     "\n 4. Nagellacke " +
                     "\n 5. Badezusätze " +
                     "\n 6. Andere " +
-                    "\n 7. Alle \n  -- Bitte Nr. eingeben: --"
+                    "\n 7. Home"
         )
         var inputCateg = readln()
         when (inputCateg) {
             "1" -> {
                 println(" - -- -  Alle Seifen  - -- - ")
-                chooseProduct(soaps, shoppingCart)
+                finalProductSelection(soaps, shoppingCart, kunde)
             }
             "2" -> {
                 println(" - -- -  Alle Crèmes  - -- - ")
-                chooseProduct(cremes, shoppingCart)
+                finalProductSelection(cremes, shoppingCart, kunde)
             }
             "3" -> {
                 println(" - -- -  Alle Peelings  - -- - ")
-                chooseProduct(peelings, shoppingCart)
+                finalProductSelection(peelings, shoppingCart, kunde)
             }
             "4" -> {
                 println(" - -- -  Alle Nagellacke  - -- - ")
-                chooseProduct(nailPolishes, shoppingCart)
+                finalProductSelection(nailPolishes, shoppingCart, kunde)
             }
             "5" -> {
                 println(" - -- -  Alle Badezusätze  - -- - ")
-                chooseProduct(bathAddits, shoppingCart)
+                finalProductSelection(bathAddits, shoppingCart, kunde)
             }
-
-            "7" -> println("Alle ausgewählt")
+            "6" -> {
+                println(" - -- -  Andere tolle Wellness-Produkte  - -- - ")
+                finalProductSelection(abstractProducts, shoppingCart, kunde)
+            }
+            // rekursiver aufruf der Methode homeMenue(s. u.)
+            "7" -> homeMenue(shoppingCart, kunde)
             else -> println("Falsche Eingabe")
         }
     }
 
 
-    fun homeMenue(shoppingCart: ShoppingCart) {
-        println(
-            "Du hast nun folgende Möglichkeiten:" +
-                    "\n 1. Einkaufskorb " +
-                    "\n 2. Alle Beauty Produkte " +
-                    "\n 3. Alle Kategorien  " +
-                    "\n 4. Mein Profil" +
-                    "\n    Bitte Nr. eingeben: "
-        )
-        var mainMenue = readln()
 
-        when (mainMenue) {
-            "1" -> println("Einkaufskorb ausgewählt")
-            "2" -> chooseBPAction(shoppingCart)
-            "3" -> println("Alle Produkte ausgewählt")
-            "4" -> println("Behandlungstermine ausgewählt")
-            "5" -> println("Mein Profil ausgewählt")
-            else -> println("Falsche Eingabe")
-        }
-    }
 
 
 }
