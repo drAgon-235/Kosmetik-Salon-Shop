@@ -15,6 +15,16 @@ class Account {
     )
 
 
+    fun logOut(){
+        this.logged = false
+        println("--------------- - ---------------- - ---------------- - ------------")
+        Thread.sleep(1500)
+        println("                - Du hast Dich erfolgreich ausgeloggt - ")
+        Thread.sleep(1500)
+        startSeite()
+    }
+
+
     fun logIn(email: String, password: String): Boolean {
         var bool: Boolean = false
         //Check ob User existiert - sollte unbedingt zuerst erfolgen:
@@ -46,7 +56,7 @@ class Account {
 // Es werden die obe gebauten Funktionen benutzt:
     fun logInUser(): Customer {
         var loggedCoustomer: Customer = Customer()
-        println("- - - Log In - - -")
+        println("- - - Log In User - - -")
         println("Bitte Email-Adresse eingeben:")
         val inhName = readln()
 

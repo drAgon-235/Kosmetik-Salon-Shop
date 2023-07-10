@@ -40,50 +40,105 @@ var customersList: MutableList<Customer> = mutableListOf(
 )
 
 
+
 fun main() {
 
-    var accLogin = Account()
-    // Die Methode .logInUser() soll einen konkreten Kunden zurückgeben, falls er es schafft, sich einzuloggen (er/sie/es hat 3 Versuche!!!):
-    var kunde = accLogin.logInUser()
-    //TEST: Hab ich den Kunden rausgefischt?
-    //println(kunde.name)     // YES !!!
-    // Es wird eine blanko Shopping Cart (Einkaufswagen) erstellt:
-    var shoppingCart: ShoppingCart = ShoppingCart()
+    startSeite()
 
-    if (accLogin.logged){
-        homeMenue(shoppingCart, kunde)
+}
 
-        println()
-        println("Einkaufskiste nochmal zeigen:")
-        shoppingCart.showShoppingCart(kunde)
-        println("Nun lösche ich die Einkaufskiste:")
-        shoppingCart.flushShoppingCart()
-        homeMenue(shoppingCart, kunde)
-        println()
-        println("Nun zeige ich die leere Liste mit der Funktion showShoppingCart():")
-        shoppingCart.showShoppingCart(kunde)
-    } else {
-        println("Zutritt aus Sicherheitsgründen für 1 Stunde gesperrt !!!")
+fun startSeite(){
+    println("----------------------------------------------------------------")
+    println(" - - - - - - -  Willkommen im Online Beauty Shop - - - - - - - ")
+    println()
+    println(" 1. User - Login \n 2. Admin - Login")
+    println()
+    println(" Bitte Auswahl eingeben:")
+    var input = readln()
+    when(input){
+        "1" -> {
+            println("-- - -- Deine persönliche Shopping Area -- - --")
+            customersLogIn()}
+        "2" -> {
+            //TODO
+        }
+        else -> {
+            println("Falsche eingabe")
+            // Einfach selbst auffangen durch Rekursion ;-D
+            startSeite()
+        }
     }
 }
 
-fun homeMenue(shoppingCart: ShoppingCart, kunde: Customer) {
+
+// Zentrale Funktion, welche den Einkaufswagen und den eingeloggten Kunden übergeben bekommt und dann
+// an entsprechende Funktionen weiterreicht, was für ein hohes Maß an Persistenz, Konsistenz und Kohärenz sorgt:
+// Das ermöglicht eine zu 100% rekursive Implementierung - die Schleifen rufen sich gegenseitig so auf, wie es der Flow erfordert und aktualisieren dabei ggf. gewünschte Datensätze (Attribute/Variablen) - in EndlosSchleife -> ohne (großartige) SCHLEIFEN !!!.
+fun homeMenue(shoppingCart: ShoppingCart, kunde: Customer, account: Account) {
     println(
         " - -- - -- -  Home - Menue - -- - -- - " +
                 "\n 1. Einkaufskorb " +
                 "\n 2. Alle Beauty Produkte " +
                 "\n 3. Alle Kategorien  " +
                 "\n 4. Mein Profil" +
+                "\n 5. Logout" +
                 "\n    Bitte Nr. eingeben: "
     )
     var mainMenue = readln()
 
     when (mainMenue) {
-        "1" -> shoppingCart.showShoppingCart(kunde)
-        "2" -> kunde.chooseBPAction(shoppingCart, kunde)
-        "3" -> kunde.chooseCategoryAction(shoppingCart, kunde)
-        "4" -> println("Mein Profil ausgewählt")
-        else -> println("Falsche Eingabe")
+        "1" -> shoppingCart.showShoppingCart(shoppingCart, kunde, account)
+        "2" -> kunde.chooseBPAction(shoppingCart, kunde, account)
+        "3" -> kunde.chooseCategoryAction(shoppingCart, kunde, account)
+        "4" -> custLoginArea(shoppingCart, kunde, account)
+        "5" -> account.logOut()
+        else -> {
+            println("Falsche Eingabe")
+            // Methode ruft sich einfach selbst nochmal auf - rekursiv - somit fängt sie sich selbst auf !!!
+            homeMenue(shoppingCart, kunde, account)
+        }
     }
 }
 
+
+fun customersLogIn(){
+    var accLogin = Account()
+    // Die Methode .logInUser() soll einen konkreten Kunden zurückgeben, falls er es schafft, sich einzuloggen (er/sie/es hat 3 Versuche!!!):
+    var kunde = accLogin.logInUser()
+    // Wenn Kunde sich einloggen kann (3 Versuche), kommt er ins HomeMenue, wo sich alle andere objektorientiert abspielt:
+    if (accLogin.logged){
+        // Es wird eine Shopping Cart (Einkaufswagen) für den Kunden erstellt (noch leer):
+        var shoppingCart: ShoppingCart = ShoppingCart()
+        // Die folgende Methode ist quasi das ganze Programm - objektorientiert eben:
+        homeMenue(shoppingCart, kunde, accLogin)
+        // Die eben erstellten 3 zetralen Objekte 'shoppingCart', 'kunde' und 'accLogin' werden von nun an, an alle zentralen Funktionen weitergegeben.
+        // das ermöglicht eine zu 100% rekursive Implementierung - die Schleifen rufen sich gegenseitig so auf, wie es der Flow erfordert und aktualisieren ggf. gewünschte Datensätze (Attribute/Variablen) - in endlosSchleife-ohne (großartige) SCHLEIFEN (zumindest in der main() ) !!!.
+
+    } else {
+        // Nach 3 Fehlversuchen beim Log-in:
+        println("Zutritt aus Sicherheitsgründen für 1 Stunde gesperrt !!!")
+    }
+}
+
+fun custLoginArea(shoppingCart: ShoppingCart, kunde: Customer, account: Account){
+    println(" - -- - -- -  Mein Account - -- - -- - ")
+    println(" 1. Archiv: Meine Einkäufe \n 2. Aktuelle Einkaufsliste \n 3. Home Menue ( shoppen gehen ;-D ) \n 4. Log Out ")
+    var input = readln()
+    when(input){
+        "1" -> {"noch nicht fertig"}
+        "2" -> shoppingCart.showShoppingCart(shoppingCart, kunde, account)
+        "3" -> homeMenue(shoppingCart, kunde, account)
+        "4" -> account.logOut()
+        else -> {
+            println("Falsche Eingabe")
+            // Methode ruft sich einfach selbst nochmal auf - rekursiv - somit fängt sie sich selbst auf !!!
+            custLoginArea(shoppingCart, kunde, account)
+        }
+    }
+}
+
+
+fun adminsLogIn(){
+
+
+}

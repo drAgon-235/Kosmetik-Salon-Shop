@@ -20,7 +20,7 @@ class Customer() {
 
 
     // My Basic Function for "LAST Choice" with actual ID for adding to ShoppingCart(wird mal chooseProduct(allProducts: MutableList<BeautyProduct>) heissen)
-    fun finalProductSelection(productList: MutableList<BeautyProduct>, shoppingCart: ShoppingCart, kunde: Customer){
+    fun finalProductSelection(productList: MutableList<BeautyProduct>, shoppingCart: ShoppingCart, kunde: Customer, account: Account){
         var localID: Int = 1
         //Trick ich erstelle ir hier eine lokale Liste für die finale Artikelauswahl
         var interimList: MutableList<BeautyProduct> = mutableListOf()
@@ -40,9 +40,9 @@ class Customer() {
         )
         var inputAction = readln()
         when (inputAction) {
-            "1" -> homeMenue(shoppingCart, kunde)
+            "1" -> homeMenue(shoppingCart, kunde, account)
             "2" -> println("Alphabetisch sortieren")
-            "3" -> {shoppingCart.addToShoppingCart(interimList, kunde) } // Hier wird abgefragt wieviel Exemplare des Produkts in den Einkaufswagen kommen und werden dann entsprechend hinzugefügt
+            "3" -> {shoppingCart.addToShoppingCart(interimList, shoppingCart, kunde, account) } // Hier wird abgefragt wieviel Exemplare des Produkts in den Einkaufswagen kommen und werden dann entsprechend hinzugefügt
             else -> println("Falsche Eingabe")
         }
         //return interimList
@@ -61,7 +61,7 @@ class Customer() {
     }
 
     // Menue-Auswahl der Kategorie, benutzt die Funktion filterCategory( s.o. ), welche einen Category.ENUM als Parameter bekommt :
-    fun chooseCategoryAction(shoppingCart: ShoppingCart, kunde: Customer){
+    fun chooseCategoryAction(shoppingCart: ShoppingCart, kunde: Customer, account: Account){
         println(" - -- -- -- Kategorie-Auswahl -- -- -- - ")
         println(
             "Kategorie auswählen oder alle ansehen:" +
@@ -80,7 +80,7 @@ class Customer() {
                 // Alle Produkte mit der Catekorie BODY (Körper):
                 bodyBPs = filterCategory(Category.BODY)
                 // Ein Produkt anhand der BestellNr. auswählen und zum Einkaufskorb hinzufügen:
-                finalProductSelection(bodyBPs, shoppingCart, kunde)
+                finalProductSelection(bodyBPs, shoppingCart, kunde, account)
             }
             "2" -> {
                 println(" - -- -  Alles für das Gesicht  - -- - ")
@@ -88,7 +88,7 @@ class Customer() {
                 // Alle Produkte mit der Catekorie BODY (Körper):
                 faceBPs = filterCategory(Category.GESICHT)
                 // Ein Produkt anhand der BestellNr. auswählen und zum Einkaufskorb hinzufügen:
-                finalProductSelection(faceBPs, shoppingCart, kunde)
+                finalProductSelection(faceBPs, shoppingCart, kunde, account)
             }
             "3" -> {
                 println(" - -- -  Alles für die Hände  - -- - ")
@@ -96,7 +96,7 @@ class Customer() {
                 // Alle Produkte mit der Catekorie BODY (Körper):
                 handsBPs = filterCategory(Category.HAENDE)
                 // Ein Produkt anhand der BestellNr. auswählen und zum Einkaufskorb hinzufügen:
-                finalProductSelection(handsBPs, shoppingCart, kunde)
+                finalProductSelection(handsBPs, shoppingCart, kunde, account)
             }
             "4" -> {
                 println(" - -- -  Alles für die Füße  - -- - ")
@@ -104,21 +104,24 @@ class Customer() {
                 // Alle Produkte mit der Catekorie BODY (Körper):
                 feetBPs = filterCategory(Category.FUESSE)
                 // Ein Produkt anhand der BestellNr. auswählen und zum Einkaufskorb hinzufügen:
-                finalProductSelection(feetBPs, shoppingCart, kunde)
+                finalProductSelection(feetBPs, shoppingCart, kunde, account)
             }
             "5" -> {
                 println(" - -- -  Andere Wellness-Produkte  - -- - ")
-                finalProductSelection(abstractProducts, shoppingCart, kunde)
+                finalProductSelection(abstractProducts, shoppingCart, kunde, account)
             }
 
-            "6" -> homeMenue(shoppingCart, kunde)
-            else -> println("Falsche Eingabe")
+            "6" -> homeMenue(shoppingCart, kunde, account)
+            else -> {
+                println("Falsche Eingabe")
+                // Bei falscher Eingabe ruft sich die Funktion einfach selbst nochmal auf - rekursiv
+                chooseCategoryAction(shoppingCart, kunde, account)            }
         }
 
     }
 
 
-    fun chooseBPAction(shoppingCart: ShoppingCart, kunde: Customer) {
+    fun chooseBPAction(shoppingCart: ShoppingCart, kunde: Customer, account: Account) {
         println("Beauty Produkte ausgewählt")
         println(
             "Kategorie auswählen oder alle ansehen:" +
@@ -134,31 +137,35 @@ class Customer() {
         when (inputCateg) {
             "1" -> {
                 println(" - -- -  Alle Seifen  - -- - ")
-                finalProductSelection(soaps, shoppingCart, kunde)
+                finalProductSelection(soaps, shoppingCart, kunde, account)
             }
             "2" -> {
                 println(" - -- -  Alle Crèmes  - -- - ")
-                finalProductSelection(cremes, shoppingCart, kunde)
+                finalProductSelection(cremes, shoppingCart, kunde, account)
             }
             "3" -> {
                 println(" - -- -  Alle Peelings  - -- - ")
-                finalProductSelection(peelings, shoppingCart, kunde)
+                finalProductSelection(peelings, shoppingCart, kunde, account)
             }
             "4" -> {
                 println(" - -- -  Alle Nagellacke  - -- - ")
-                finalProductSelection(nailPolishes, shoppingCart, kunde)
+                finalProductSelection(nailPolishes, shoppingCart, kunde, account)
             }
             "5" -> {
                 println(" - -- -  Alle Badezusätze  - -- - ")
-                finalProductSelection(bathAddits, shoppingCart, kunde)
+                finalProductSelection(bathAddits, shoppingCart, kunde, account)
             }
             "6" -> {
                 println(" - -- -  Andere tolle Wellness-Produkte  - -- - ")
-                finalProductSelection(abstractProducts, shoppingCart, kunde)
+                finalProductSelection(abstractProducts, shoppingCart, kunde, account)
             }
             // rekursiver aufruf der Methode homeMenue(s. u.)
-            "7" -> homeMenue(shoppingCart, kunde)
-            else -> println("Falsche Eingabe")
+            "7" -> homeMenue(shoppingCart, kunde, account)
+            else -> {
+                println("Falsche Eingabe")
+                // Bei falscher Eingabe ruft sich die Funktion einfach selbst nochmal auf - rekursiv
+                chooseBPAction(shoppingCart, kunde, account)
+            }
         }
     }
 
