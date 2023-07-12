@@ -1,15 +1,26 @@
-
-
-
-
-
 // Produktlisten:
 
 var abstractProducts: MutableList<BeautyProduct> = mutableListOf(
     mixed_01, mixed_02, mixed_03, mixed_04, mixed_05, mixed_06
 )
 var soaps: MutableList<BeautyProduct> = mutableListOf(
-    Soap_01, Soap_02, Soap_03, Soap_04, Soap_05, Soap_06, Soap_07, Soap_08, Soap_09, Soap_10, Soap_11, Soap_12, Soap_13, Soap_14, Soap_14, Soap_15, Soap_16
+    Soap_01,
+    Soap_02,
+    Soap_03,
+    Soap_04,
+    Soap_05,
+    Soap_06,
+    Soap_07,
+    Soap_08,
+    Soap_09,
+    Soap_10,
+    Soap_11,
+    Soap_12,
+    Soap_13,
+    Soap_14,
+    Soap_14,
+    Soap_15,
+    Soap_16
 )
 var cremes: MutableList<BeautyProduct> = mutableListOf(
     Cr_01, Cr_02, Cr_03, Cr_04, Cr_05, Cr_06, Cr_07, Cr_08, Cr_09, Cr_10, Cr_11, Cr_12, Cr_13, Cr_14, Cr_15, Cr_16
@@ -21,7 +32,26 @@ var nailPolishes: MutableList<BeautyProduct> = mutableListOf(
     NP_01, NP_02, NP_03, NP_04, NP_05, NP_06, NP_07, NP_08, NP_09, NP_10, NP_11, NP_12
 )
 var bathAddits: MutableList<BeautyProduct> = mutableListOf(
-    BA_01, BA_02, BA_03, BA_04, BA_05, BA_06, BA_07, BA_08, BA_09, BA_10, BA_11, BA_12, BA_13, BA_14, BA_15, BA_16, BA_17, BA_18, BA_19, BA_20
+    BA_01,
+    BA_02,
+    BA_03,
+    BA_04,
+    BA_05,
+    BA_06,
+    BA_07,
+    BA_08,
+    BA_09,
+    BA_10,
+    BA_11,
+    BA_12,
+    BA_13,
+    BA_14,
+    BA_15,
+    BA_16,
+    BA_17,
+    BA_18,
+    BA_19,
+    BA_20
 )
 
 
@@ -51,19 +81,44 @@ var passWordDB: MutableMap<String, String> = mutableMapOf(
 
 
 // Liste mit Admins:
-var admoinsList: MutableList<Admin> = mutableListOf(
+var adminsList: MutableList<Admin> = mutableListOf(
     testAdmin_01, testAdmin_02
 )
 
+// Map mit Passwörtern aller Admuns - mutable, flexibel und bearbeitbar
+var passWordDBAdmin: MutableMap<String, String> = mutableMapOf(
+    "gau_pali@yahoo.in" to "ganesha123",
+    "MarDi@djs.tv" to "suoergeil123"
+)
 
 
 fun main() {
 
+
+
+
+
+
+
+
+
+
     startSeite()
+
+
+
+
+
+
+
+
+
+
 
 }
 
-fun startSeite(){
+
+fun startSeite() {
     println("----------------------------------------------------------------")
     println(" - - - - - - -  Willkommen im Online Beauty Shop - - - - - - - ")
     println()
@@ -71,15 +126,21 @@ fun startSeite(){
     println()
     println(" Bitte Auswahl eingeben:")
     var input = readln()
-    when(input){
+    when (input) {
         "1" -> {
             println("-- - -- Deine persönliche Shopping Area -- - --")
-            customersLogIn()}
+            customersLogIn()
+        }
+
         "2" -> {
             println("-- - -- Deine persönliche Admin Area -- - --")
             adminsLogIn()
         }
-        "3" -> {createNewCustomer()}
+
+        "3" -> {
+            createNewCustomer()
+        }
+
         else -> {
             println("Falsche eingabe")
             // Einfach selbst auffangen durch Rekursion ;-D
@@ -89,46 +150,19 @@ fun startSeite(){
 }
 
 
-// Zentrale Funktion, welche den Einkaufswagen und den eingeloggten Kunden übergeben bekommt und dann
+// Es folgt die zentrale Funktion, welche den Einkaufswagen und den eingeloggten Kunden übergeben bekommt und dann
 // an entsprechende Funktionen weiterreicht, was für ein hohes Maß an Persistenz, Konsistenz und Kohärenz sorgt:
 // Das ermöglicht eine zu 100% rekursive Implementierung - die Schleifen rufen sich gegenseitig so auf, wie es der Flow erfordert und aktualisieren dabei ggf. gewünschte Datensätze (Attribute/Variablen) - in EndlosSchleife -> ohne (großartige) SCHLEIFEN !!!.
-fun homeMenueUser(shoppingCart: ShoppingCart, kunde: Customer, account: CustomerAccount) {
-    println(
-        " - -- - -- -  Home - Menue - -- - -- - " +
-                "\n 1. Einkaufskorb " +
-                "\n 2. Alle Beauty Produkte " +
-                "\n 3. Alle Kategorien  " +
-                "\n 4. Mein Profil" +
-                "\n 5. Logout" +
-                "\n    Bitte Nr. eingeben: "
-    )
-    var mainMenue = readln()
-
-    when (mainMenue) {
-        "1" -> shoppingCart.showShoppingCart(shoppingCart, kunde, account)
-        "2" -> kunde.chooseBPAction(shoppingCart, kunde, account)
-        "3" -> kunde.chooseCategoryAction(shoppingCart, kunde, account)
-        "4" -> account.custLoginArea(shoppingCart, kunde, account)
-        "5" -> account.logOut()
-        else -> {
-            println("Falsche Eingabe")
-            // Methode ruft sich einfach selbst nochmal auf - rekursiv - somit fängt sie sich selbst auf !!!
-            homeMenueUser(shoppingCart, kunde, account)
-        }
-    }
-}
-
-
-fun customersLogIn(){
+fun customersLogIn() {
     var accLogin = CustomerAccount()
     // Die Methode .logInUser() soll einen konkreten Kunden zurückgeben, falls er es schafft, sich einzuloggen (er/sie/es hat 3 Versuche!!!):
     var kunde = accLogin.logInUser()
     // Wenn Kunde sich einloggen kann (3 Versuche), kommt er ins HomeMenue, wo sich alle andere objektorientiert abspielt:
-    if (accLogin.logged){
+    if (accLogin.logged) {
         // Es wird eine Shopping Cart (Einkaufswagen) für den Kunden erstellt (noch leer):
         var shoppingCart: ShoppingCart = ShoppingCart()
         // Die folgende Methode ist quasi das ganze Programm - objektorientiert eben:
-        homeMenueUser(shoppingCart, kunde, accLogin)
+        kunde.homeMenueUser(shoppingCart, kunde, accLogin)
         // Die eben erstellten 3 zetralen Objekte 'shoppingCart', 'kunde' und 'accLogin' werden von nun an, an alle zentralen Funktionen weitergegeben.
         // das ermöglicht eine zu 100% rekursive Implementierung - die Schleifen rufen sich gegenseitig so auf, wie es der Flow erfordert und aktualisieren ggf. gewünschte Datensätze (Attribute/Variablen) - in endlosSchleife-ohne (großartige) SCHLEIFEN (zumindest in der main() ) !!!.
 
@@ -139,15 +173,14 @@ fun customersLogIn(){
 }
 
 
-
-fun adminsLogIn(){
+fun adminsLogIn() {
     var adminAcc = AdminAccount()
     // Es wird ein 'leerer' Admin erstellt:
     var admin: Admin = adminAcc.logInAdmin()
     // Der wird im Falle des Einloggens konkretisiert und "eingeloggt"  -  sonst Sperre für 1 Stunde
 
     // Wenn Admin sich einloggen kann (3 Versuche), kommt er ins HomeMenue, wo sich alles andere objektorientiert abspielt:
-    if (adminAcc.logged){
+    if (adminAcc.logged) {
         adminAcc.homeMenueAd(admin, adminAcc)
 
     } else {
@@ -156,7 +189,8 @@ fun adminsLogIn(){
     }
 }
 
-fun createNewCustomer(){
+
+fun createNewCustomer() {
     println(" --  --  --  Erstelle einen neuen Kundenaccount  --  --  --")
     println("Bitte Name eingeben:")
     var name = readln()
@@ -172,7 +206,7 @@ fun createNewCustomer(){
     //println("Bitte Passwort wiederholen")
     //var pw2 = readln()
 
-    var custumNr = customersList[customersList.lastIndex].customNr +1
+    var custumNr = customersList[customersList.lastIndex].customNr + 1
     var newCustomer: Customer = Customer()
 
     println()
@@ -185,17 +219,26 @@ fun createNewCustomer(){
     println()
     println("Sind die Daten korrekt? \n 1. Ja, einchecken bitte. \n 2. Nein, nochmal von vorne \n 3. Home")
     var input = readln()
-    when(input){
+    when (input) {
         "1" -> {
-            newCustomer = Customer(custumNr, name, adress, email, pw1, 0.0 )
+            newCustomer = Customer(custumNr, name, adress, email, pw1, 0.0)
             customersList.add(newCustomer)
             passWordDB[email] = pw1
-            for (it in passWordDB){
+            /*
+            println(" Listen Test ")
+            for (it in passWordDB) {
                 println("Wert:")
                 println(it.value)
                 println("Key:")
                 println(it.key)
             }
+
+             */
+            Thread.sleep(1500)
+            println()
+            println(". . .")
+            println()
+            startSeite()
             println("Der Account wurde erfolgreich erstellt - Sie können sich jetzt einloggen")
             Thread.sleep(1500)
             println()
@@ -203,7 +246,11 @@ fun createNewCustomer(){
             println()
             startSeite()
         }
-        "2" -> {createNewCustomer()}
+
+        "2" -> {
+            createNewCustomer()
+        }
+
         "3" -> startSeite()
         else -> {
             println("Etwas ist schief gelaufen - nochmal von vorne bitte:")
@@ -211,6 +258,7 @@ fun createNewCustomer(){
         }
     }
 }
+
 
 
 

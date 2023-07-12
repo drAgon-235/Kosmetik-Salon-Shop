@@ -1,16 +1,12 @@
 class AdminAccount {
     var logged = false
 
-    var passWordDBAdmin: MutableMap<String, String> = mutableMapOf(
-        "gau_pali@yahoo.in" to "ganesha123",
-        "MarDi@djs.tv" to "suoergeil123"
-    )
 
     fun homeMenueAd(admin: Admin, adminAccount: AdminAccount) {
         println(
             " - -- - -- -  Admin - Menue - -- - -- - " +
                     "\n 1. Neues Produkt erstellen " +
-                    "\n 2. Preis für ein Produkt ändern" +
+                    "\n 2. Neuen Admin-Kollegen erstellen" +
                     "\n 3. Logout" +
                     "\n    Bitte Nr. eingeben: "
         )
@@ -18,7 +14,7 @@ class AdminAccount {
 
         when (mainMenue) {
             "1" -> admin.createBP(admin, adminAccount)
-            "2" -> println("Preis für ein Produkt ändern gewählt -  noch zu machen")
+            "2" -> admin.createCoAdmin(admin, adminAccount)
             "3" -> adminAccount.logOut()
             else -> {
                 println("Falsche Eingabe")
@@ -56,6 +52,7 @@ class AdminAccount {
         return bool
     }
 
+
     fun checkAdminExistence(accOwner: String): Boolean {
         if (accOwner in passWordDBAdmin.keys)
             return true
@@ -90,7 +87,7 @@ class AdminAccount {
                     counter = 0
 
                     // Hier wird der Admin mit dem richtigen PW gesucht und gespeichert & am Ende returned !!!  (danach Abbruch der Schleife)
-                    for (it in admoinsList) {
+                    for (it in adminsList) {
                         if (it.password == pw) {
                             loggedAdmin = it
                             println("Hallo ${it.name}, Du hast Dich erfolgreich eingeloggt.  ")

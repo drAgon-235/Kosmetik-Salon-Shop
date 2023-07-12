@@ -41,7 +41,7 @@ class ShoppingCart {
                         Thread.sleep(1000)
                         println("... \n ... \n ...")
                         Thread.sleep(2000)
-                        homeMenueUser(shoppingCart, kunde, account)
+                        kunde.homeMenueUser(shoppingCart, kunde, account)
                     }
 
                     "2" -> {
@@ -61,7 +61,7 @@ class ShoppingCart {
                 Thread.sleep(1000)
                 println("... \n ... \n ...")
                 Thread.sleep(2000)
-                homeMenueUser(shoppingCart, kunde, account)
+                kunde.homeMenueUser(shoppingCart, kunde, account)
             }
 
             else -> {
@@ -97,7 +97,7 @@ class ShoppingCart {
                 Thread.sleep(1000)
                 println("... \n ... \n ...")
                 Thread.sleep(2000)
-                homeMenueUser(shoppingCart, kunde, account)
+                kunde.homeMenueUser(shoppingCart, kunde, account)
             }
         }
     }
@@ -134,7 +134,7 @@ class ShoppingCart {
                 println("Einkaufswagen aktualisiert:")
                 showShoppingCart(shoppingCart, kunde, account)
             }
-            "2" -> homeMenueUser(shoppingCart, kunde, account)
+            "2" -> kunde.homeMenueUser(shoppingCart, kunde, account)
             else -> {
                 println("Falsche Eingabe - Nochmal von vorne: ")
                 println("...")
@@ -162,7 +162,7 @@ class ShoppingCart {
             var input = readln()
             when (input) {
                 "1" -> {
-                    homeMenueUser(this, kunde, account)
+                    kunde.homeMenueUser(this, kunde, account)
                 }
 
                 "2" -> {
@@ -188,7 +188,7 @@ class ShoppingCart {
             println("        - L E E R -")
             println("- - -- - - -- - - -- - - -- - - -- - - -- - - -- - -")
             // Automatische Weiterleitung zu Home Menue:
-            homeMenueUser(shoppingCart, kunde, account)
+            kunde.homeMenueUser(shoppingCart, kunde, account)
         }
     }
 

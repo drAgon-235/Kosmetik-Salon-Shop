@@ -16,6 +16,31 @@ class Customer() {
         this.saldo
     }
 
+    fun homeMenueUser(shoppingCart: ShoppingCart, kunde: Customer, account: CustomerAccount) {
+        println(
+            " - -- - -- -  Home - Menue - -- - -- - " +
+                    "\n 1. Einkaufskorb " +
+                    "\n 2. Alle Beauty Produkte " +
+                    "\n 3. Alle Kategorien  " +
+                    "\n 4. Mein Profil" +
+                    "\n 5. Logout" +
+                    "\n    Bitte Nr. eingeben: "
+        )
+        var mainMenue = readln()
+
+        when (mainMenue) {
+            "1" -> shoppingCart.showShoppingCart(shoppingCart, kunde, account)
+            "2" -> kunde.chooseBPAction(shoppingCart, kunde, account)
+            "3" -> kunde.chooseCategoryAction(shoppingCart, kunde, account)
+            "4" -> account.custLoginArea(shoppingCart, kunde, account)
+            "5" -> account.logOutUser()
+            else -> {
+                println("Falsche Eingabe")
+                // Methode ruft sich einfach selbst nochmal auf - rekursiv - somit fängt sie sich selbst auf !!!
+                homeMenueUser(shoppingCart, kunde, account)
+            }
+        }
+    }
 
 
     // My Basic Function for "LAST Choice" with actual ID for adding to ShoppingCart(wird mal chooseProduct(allProducts: MutableList<BeautyProduct>) heissen)

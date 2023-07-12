@@ -7,6 +7,8 @@ class CustomerAccount {
     var purchases: MutableList<Order> = mutableListOf()
 
 
+
+
     fun custLoginArea(shoppingCart: ShoppingCart, kunde: Customer, account: CustomerAccount) {
         println(" - -- - -- -  Mein Account - -- - -- - ")
         println(" 1. Archiv: Meine Einkäufe \n 2. Aktuelle Einkaufsliste \n 3. Home Menue ( shoppen gehen ;-D ) \n 4. Log Out ")
@@ -14,8 +16,8 @@ class CustomerAccount {
         when (input) {
             "1" -> account.showOrders(shoppingCart, kunde, account)
             "2" -> shoppingCart.showShoppingCart(shoppingCart, kunde, account)
-            "3" -> homeMenueUser(shoppingCart, kunde, account)
-            "4" -> account.logOut()
+            "3" -> kunde.homeMenueUser(shoppingCart, kunde, account)
+            "4" -> account.logOutUser()
             else -> {
                 println("Falsche Eingabe")
                 // Methode ruft sich einfach selbst nochmal auf - rekursiv - somit fängt sie sich selbst auf !!!
@@ -35,12 +37,13 @@ class CustomerAccount {
         var input = readln()
         when (input) {
             "1" -> custLoginArea(shoppingCart, kunde, account)
-            "2" -> homeMenueUser(shoppingCart, kunde, account)
+            "2" -> kunde.homeMenueUser(shoppingCart, kunde, account)
 
         }
     }
 
-    fun logOut() {
+
+    fun logOutUser() {
         this.logged = false
         println("--------------- - ---------------- - ---------------- - ------------")
         Thread.sleep(1500)
@@ -50,7 +53,7 @@ class CustomerAccount {
     }
 
 
-    fun logIn(email: String, password: String): Boolean {
+    fun checkPW(email: String, password: String): Boolean {
         var bool: Boolean = false
         //Check ob User existiert - sollte unbedingt zuerst erfolgen:
         if (email in passWordDB.keys) {
@@ -97,7 +100,7 @@ class CustomerAccount {
                 println("Bitte Passwort eingeben:")
                 val pw = readln()
                 // Die Überprüfuung des Passwords mittels der Funktion logIn() erfolgt insgesamt so oft, wie in der Variable 'counter' steht
-                logInBool = logIn(inhName, pw)
+                logInBool = checkPW(inhName, pw)
 
                 if (logInBool) {
                     //Sobald Passwort richtig ist, wird counter auf 0 gesetzt, weil nicht weiter runtergezählt werden muss und darf!!!

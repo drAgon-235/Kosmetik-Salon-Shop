@@ -1,5 +1,8 @@
 
 
+// Alle folgenden Daten werden quasi in der Backbone in die Listen unseres Programms/Shops übertragen:
+// Das erfolgt jedes Mal bei der Initialisierung des Programms mit diesen Daten als Initialwerte bzw. Stammdaten:
+
 var testAdmin_01: Admin = Admin(1, "Gautam Kutrapali", "gau_pali@yahoo.in", "ganesha123")
 var testAdmin_02: Admin = Admin(2, "Marusha Dimitrova", "MarDi@djs.tv", "suoergeil123")
 

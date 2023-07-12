@@ -14,7 +14,7 @@ class Admin() {
     }
 
 
-    // Folgende Funktion erstellt ein BeautyProduct und fügt es automatisch in die entsprechende Artikelliste ein, welche sofort aktualisiert wird und sofort durch USer genutzt werden kann:
+    // Folgende Funktion erstellt ein BeautyProduct und fügt es automatisch in die entsprechende Artikelliste ein, welche sofort aktualisiert wird und sofort durch User genutzt werden kann:
     fun createBP(admin: Admin, adminAccount: AdminAccount) {
         var newBP: BeautyProduct = BeautyProduct()
 
@@ -33,17 +33,18 @@ class Admin() {
         }
         println()
 
+        println("Bitte nun den Namen, die Beschreibung des Produkts eingeben (erscheint in der Produktübersicht):")
+        var bpName = readln()
+        println()
+
         println("Als nächstes bitte den Bruttopreis eingeben (in €)")
         var price = readln().toDouble()
         println()
 
-        println("Nun Anfangslagerbestand eingeben:")
+        println("Nun Anfangslagerbestand eingeben (ggf. 0):")
         var stock = readln().toInt()
         println()
 
-        println("Bitte nun den Namen, die Beschreibung des Produkts eingeben (erscheint in der Produktübersicht):")
-        var bpName = readln()
-        println()
 
         println(
             "Wählen Sie jetzt bitte die Kategorie des neuen Produkts:" +
@@ -54,6 +55,7 @@ class Admin() {
                     "\n 5. Andere"
         )
         var inputCat = readln()
+
         var cat: Category = Category.GEMISCHT
         when (inputCat) {
             "1" -> cat = Category.GESICHT
@@ -125,7 +127,7 @@ class Admin() {
             }
 
             "6" -> {
-                println("Ein Standart Beauty Produkt bedarf keiner weiteren Eingaben ...")
+                println("Ein Standard Beauty Produkt bedarf keiner weiteren Eingaben ...")
                 newBP = BeautyProduct(cat, bpName, brand, price, stock)
                 abstractProducts.add(newBP)
                 Thread.sleep(2000)
@@ -141,7 +143,7 @@ class Admin() {
         println("Sie haben folgendes Beauty Product erstellt: ")
         newBP.showEssentials()
         println()
-        println("Es wurde automatisch in die entsprechende Artikelliste einsortiert und ist AB SOFORT kaufbar!")
+        println("Es wurde automatisch in die entsprechende Artikelliste einsortiert und ist AB SOFORT kaufbar! (Verfügbarkeit vorausgesetzt)")
 
         println("Was möchten Sie jetzt tun? \n 1. Weiteres Produkt erstellen \n 2. Fertig - Home ")
 
@@ -164,15 +166,60 @@ class Admin() {
          */
     }
 
+    // Folgende Funktion erstellt einen neuen Admin, der sofort nach dem Ausloggen des alten loslegen kann:
+    fun createCoAdmin(admin: Admin, adminAccount: AdminAccount) {
+        println("- - Neuen Admin erstellen - -")
+        println()
+        println("Bitte Name eingeben:")
+        var name = readln()
+        println("Bitte email Adresse eingeben:")
+        var email = readln()
+        println("Bitte Passwort festlegen:")
+        var pw1 = readln()
 
-    fun changePrice() {
+        var id = adminsList[adminsList.lastIndex].adminNr + 1
+        var newAdmin: Admin = Admin()
+
+        println()
+        println("Sind Ihre Eingaben korrekt? ")
+        println("Name: $name")
+        println("email: $email")
+        println("Passwort: $pw1")
+        println("Nr: $id")
+        println()
+        println("Sind die Daten korrekt? \n 1. Ja, einchecken bitte. \n 2. Nein, nochmal von vorne \n 3. Home")
+
+        var input = readln()
+        when(input){
+            "1" -> {
+                newAdmin = Admin(id, name, email, pw1)
+                adminsList.add(newAdmin)
+                passWordDBAdmin[email] = pw1
+                Thread.sleep(1500)
+                println()
+                println(". . .")
+                println()
+                println("Der Account wurde erfolgreich erstellt und kann SOFORT genutzt werden")
+                Thread.sleep(1500)
+                println()
+                println(". . .")
+                println()
+                adminAccount.homeMenueAd(admin, adminAccount)
+            }
+            "2" -> {createCoAdmin(admin, adminAccount)}
+            "3" -> {adminAccount.homeMenueAd(admin, adminAccount)}
+            else -> {
+                println("Etwas ist schief gelaufen - nochmal von vorne bitte:")
+                createCoAdmin(admin, adminAccount)
+            }
+        }
 
 
     }
 
 
-    fun createCoAdmin() {
-        //TODO Bonus
+    fun changePrice() {
+        // TODO
 
     }
 }
