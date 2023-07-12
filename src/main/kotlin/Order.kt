@@ -1,4 +1,3 @@
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 class Order() {
@@ -22,7 +21,7 @@ class Order() {
 
 
 
-    fun showOrderDetails(account: Account){
+    fun showOrderDetails(account: CustomerAccount){
         println("---------------------------------------------------------")
         println(" - - Bestellung vom Datum: ${this.date}")
         // Pritet die einzelnen Produkte der Bestellung aus - wer das versteht: Glückwunsch !!!!

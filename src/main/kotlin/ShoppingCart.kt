@@ -3,7 +3,7 @@ class ShoppingCart {
     var priceTotal: Double = 0.0
 
 
-    fun payAndBuy(shoppingCart: ShoppingCart, kunde: Customer, account: Account) {
+    fun payAndBuy(shoppingCart: ShoppingCart, kunde: Customer, account: CustomerAccount) {
         println()
         println("Vielen Dank für Ihren Einkauf.")
         // Da die Elemente der items List nur Pointer auf die OriginalObjekte darstellen, reicht es das Attribut für Lageranzahl (inStock: Int) in der klasseneigenen 'itemsList' zu ändern; dadurch werden die OriginalObjekte aktualisiert (getestet Check )
@@ -72,7 +72,7 @@ class ShoppingCart {
 
     }
 
-    fun payAndBuyOptions(shoppingCart: ShoppingCart, kunde: Customer, account: Account) {
+    fun payAndBuyOptions(shoppingCart: ShoppingCart, kunde: Customer, account: CustomerAccount) {
         println("Bitte Bezahlmethode auswählen: \n 1. PayPal \n 2. Kreditkarte \n 3. Clarna \n 4. Blitzüberweisung \n 5. Home (zurück)")
         var methode = readln()
         when (methode) {
@@ -115,7 +115,7 @@ class ShoppingCart {
         interimList: MutableList<BeautyProduct>,
         shoppingCart: ShoppingCart,
         kunde: Customer,
-        account: Account
+        account: CustomerAccount
     ) {
         println("Gib Deine Bestellnummer ein:")
         var inputBestNr = readln().toInt()
@@ -146,7 +146,7 @@ class ShoppingCart {
     }
 
 
-    fun showShoppingCart(shoppingCart: ShoppingCart, kunde: Customer, account: Account) {
+    fun showShoppingCart(shoppingCart: ShoppingCart, kunde: Customer, account: CustomerAccount) {
         // Mehrere identische Artikel werden alle einzeln aufgeführt... (noch - BONUS-Aufgabe)
         println(" -- -- Einkaufswagen -- -- ")
         var postenID = 1

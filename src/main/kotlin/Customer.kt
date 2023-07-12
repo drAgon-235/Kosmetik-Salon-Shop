@@ -19,7 +19,7 @@ class Customer() {
 
 
     // My Basic Function for "LAST Choice" with actual ID for adding to ShoppingCart(wird mal chooseProduct(allProducts: MutableList<BeautyProduct>) heissen)
-    fun finalProductSelection(productList: MutableList<BeautyProduct>, shoppingCart: ShoppingCart, kunde: Customer, account: Account){
+    fun finalProductSelection(productList: MutableList<BeautyProduct>, shoppingCart: ShoppingCart, kunde: Customer, account: CustomerAccount){
         var localID: Int = 1
         //Trick ich erstelle ir hier eine lokale Liste für die finale Artikelauswahl
         var interimList: MutableList<BeautyProduct> = mutableListOf()
@@ -63,7 +63,7 @@ class Customer() {
     }
 
     // Menue-Auswahl der Kategorie, benutzt die Funktion filterCategory( s.o. ), welche einen Category.ENUM als Parameter bekommt :
-    fun chooseCategoryAction(shoppingCart: ShoppingCart, kunde: Customer, account: Account){
+    fun chooseCategoryAction(shoppingCart: ShoppingCart, kunde: Customer, account: CustomerAccount){
         println(" - -- -- -- Kategorie-Auswahl -- -- -- - ")
         println(
             "Kategorie auswählen oder alle ansehen:" +
@@ -123,7 +123,7 @@ class Customer() {
     }
 
 
-    fun chooseBPAction(shoppingCart: ShoppingCart, kunde: Customer, account: Account) {
+    fun chooseBPAction(shoppingCart: ShoppingCart, kunde: Customer, account: CustomerAccount) {
         println("Beauty Produkte ausgewählt")
         println(
             "Kategorie auswählen oder alle ansehen:" +

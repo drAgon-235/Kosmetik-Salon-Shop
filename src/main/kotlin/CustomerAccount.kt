@@ -1,5 +1,5 @@
 // Diese Klasse verwaltet vor allem den Login zum Account
-class Account {
+class CustomerAccount {
 
     // Zentrales Attribut. Wird erst nach Instaziierung gesetted und entscheidet (in der Main) über den weiteren Flow
     var logged: Boolean = false
@@ -7,22 +7,11 @@ class Account {
     var purchases: MutableList<Order> = mutableListOf()
 
 
-    // Liste mit Passwörtern aller User - mutable, flexibel und bearbeitbar
-    // (inkl. "Bestandskunden")
-    var passWordDB: MutableMap<String, String> = mutableMapOf(
-        "o.mueller@gmx.de" to "abc123",
-        "Joe123@web.de" to "Kickerickie1234",
-        "marHutten@yahoo.com" to "huttenTutten789",
-        "YesKes4576@alibaba.com" to "MuNaHeDschin",
-        "epry_Diamond@gmail.com" to "masturabiato12345"
-    )
-
-
-    fun custLoginArea(shoppingCart: ShoppingCart, kunde: Customer, account: Account){
+    fun custLoginArea(shoppingCart: ShoppingCart, kunde: Customer, account: CustomerAccount) {
         println(" - -- - -- -  Mein Account - -- - -- - ")
         println(" 1. Archiv: Meine Einkäufe \n 2. Aktuelle Einkaufsliste \n 3. Home Menue ( shoppen gehen ;-D ) \n 4. Log Out ")
         var input = readln()
-        when(input){
+        when (input) {
             "1" -> account.showOrders(shoppingCart, kunde, account)
             "2" -> shoppingCart.showShoppingCart(shoppingCart, kunde, account)
             "3" -> homeMenueUser(shoppingCart, kunde, account)
@@ -36,22 +25,22 @@ class Account {
     }
 
 
-    fun showOrders(shoppingCart: ShoppingCart, kunde: Customer, account: Account){
+    fun showOrders(shoppingCart: ShoppingCart, kunde: Customer, account: CustomerAccount) {
         println(" -- -- Übersicht aller Deiner Einkäufe -- -- ")
-        for (it in purchases){
+        for (it in purchases) {
             it.showOrderDetails(account)
             // TODO
         }
         println("Optionen: \n 1. Zurück zu 'Mein Account' \n 2. Home")
         var input = readln()
-        when(input){
+        when (input) {
             "1" -> custLoginArea(shoppingCart, kunde, account)
             "2" -> homeMenueUser(shoppingCart, kunde, account)
 
         }
     }
 
-    fun logOut(){
+    fun logOut() {
         this.logged = false
         println("--------------- - ---------------- - ---------------- - ------------")
         Thread.sleep(1500)
@@ -114,10 +103,16 @@ class Account {
                     //Sobald Passwort richtig ist, wird counter auf 0 gesetzt, weil nicht weiter runtergezählt werden muss und darf!!!
                     counter = 0
 
-                    // Hier wird der Kunde mit dem richtigen PW gesucht und gespeichert & am Ende returned !!!  (danach Abbruch der Schleife)
+                    // Hier wird der Kunde mit dem richtigen PW UND der richtigen Email (doppelte Absicherung, falls PW-Doubletten exisistieren) gesucht und gespeichert & am Ende returned !!!  (danach Abbruch der Schleife)
                     for (it in customersList) {
-                        if (it.password == pw) {
-                            loggedCoustomer = it
+                        if (it.email == inhName) {
+                            for (it in customersList) {
+                                if (it.password == pw)
+                                    loggedCoustomer = it
+                            }
+                            // Hier hatte ich das Problem (2 h), dass wenn zwei Leute das gleiche PW hatten, kam immer nur der erste raus
+                            // ich bin sicher es geht auch einfacher mit Lambda... aber ich war so froh, als das endlich lief ...
+                            // müsste noch der Fall abgefangen werde, wo zwei Kunden sowohl das gleiche PW als auch die gleiche Email haben, was ja nicht geht. Muss irgendwie bei der eingabe des PW erfolgen ... ja und der Email erfolgen... TODO Bonus
                             println("Hallo ${it.name}, Du hast Dich erfolgreich eingeloggt.  ")
                             break
                         }
@@ -149,16 +144,4 @@ class Account {
     }
 
 
-    fun createNewUser() {
-
-
-        //Einfügen in die globale Liste aller User:
-
-
-    }
-
-
-    fun menue() {
-
-    }
 }
