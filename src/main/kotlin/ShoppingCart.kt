@@ -7,17 +7,17 @@ class ShoppingCart {
         println()
         println("Vielen Dank für Ihren Einkauf.")
         // Da die Elemente der items List nur Pointer auf die OriginalObjekte darstellen, reicht es das Attribut für Lageranzahl (inStock: Int) in der klasseneigenen 'itemsList' zu ändern; dadurch werden die OriginalObjekte aktualisiert (getestet Check )
-        for (it in itemsList) {
+        for (it in shoppingCart.itemsList) {
             it.inStock = it.inStock - 1
         }
         // Den gesamten Einkauf in ein Objekt packen ...
-        var order = Order(itemsList, priceTotal)
-        // ... und in die individuelle (da klasseneigene) 'orderList' speichern:
-        order.addToOrdersList()
+        var order = Order(shoppingCart.itemsList, priceTotal)
+        // ... und in die individuelle  'purchases' Liste (Account.kt) speichern:
+        account.purchases.add(order)
         println("Der Versand erfolgt an die gespeicherte Adresse")
         println("(Das Lager (inStock) wurde aktualisiert)")
-        // Anschließend noch die Einkaufliste leeren:
-        flushShoppingCart()
+        // Anschließend noch die Einkaufliste leeren: NOOOOO das macht RIESENPROBLEME zumindest an dieser Stelle
+        //flushShoppingCart()
         // Abschlließende Optionen:
         println("- -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- -")
 
@@ -30,7 +30,8 @@ class ShoppingCart {
                 println("- -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- -")
                 Thread.sleep(1000)
                 println("Folgender Einkauf wurde in Deiner Einkaufsübersicht archiviert")
-                order.showOrderDetails()
+                order.showOrderDetails(account)
+                flushShoppingCart()     // hier ist die Funktion an der RICHTIGEN Stelle (man, hat das gedauert ...!!!!, verdammt aber immer noch nicht optimal.... ggrrrr)
                 println("- -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- -")
                 println("Optionen: \n 1. Home \n 2. Mein Profil")
                 var input2 = readln()
@@ -40,11 +41,11 @@ class ShoppingCart {
                         Thread.sleep(1000)
                         println("... \n ... \n ...")
                         Thread.sleep(2000)
-                        homeMenue(shoppingCart, kunde, account)
+                        homeMenueUser(shoppingCart, kunde, account)
                     }
 
                     "2" -> {
-                        println("Mein Profil muss noch erstellt werden")
+                        account.custLoginArea(shoppingCart, kunde, account)
                     }
 
                     else -> {
@@ -60,7 +61,7 @@ class ShoppingCart {
                 Thread.sleep(1000)
                 println("... \n ... \n ...")
                 Thread.sleep(2000)
-                homeMenue(shoppingCart, kunde, account)
+                homeMenueUser(shoppingCart, kunde, account)
             }
 
             else -> {
@@ -96,7 +97,7 @@ class ShoppingCart {
                 Thread.sleep(1000)
                 println("... \n ... \n ...")
                 Thread.sleep(2000)
-                homeMenue(shoppingCart, kunde, account)
+                homeMenueUser(shoppingCart, kunde, account)
             }
         }
     }
@@ -110,26 +111,38 @@ class ShoppingCart {
     }
 
 
-    fun addToShoppingCart(interimList: MutableList<BeautyProduct>, shoppingCart: ShoppingCart, kunde: Customer, account: Account) {
+    fun addToShoppingCart(
+        interimList: MutableList<BeautyProduct>,
+        shoppingCart: ShoppingCart,
+        kunde: Customer,
+        account: Account
+    ) {
         println("Gib Deine Bestellnummer ein:")
         var inputBestNr = readln().toInt()
         println("Deine Auswahl:")
         interimList[inputBestNr - 1].showEssentials()    // -1, weil Bestellnummern bei 1 anfangen aber der Index bei 0 anfängt
-        println("Möchtest Du das in den Warenkorb legen? \n - Für 'Ja' klicke 'y': \n - Für 'Zurück' klicke 'z'")
+        println("Möchtest Du das in den Warenkorb legen? \n - 1. Ja \n - 2. Nein(Home Menue)")
         var inputCart = readln()
-        if (inputCart == "y") {
-            println("Wie viele Exemplare sollen in den Einkaufskorb? Bitte Anzahl eingeben: ")
-            var itemsToAdd = readln().toInt()
-            repeat(itemsToAdd) {
-                itemsList.add(interimList[inputBestNr - 1])
+        when(inputCart){
+            "1" -> {
+                println("Wie viele Exemplare sollen in den Einkaufskorb? Bitte Anzahl eingeben: ")
+                var itemsToAdd = readln().toInt()
+                repeat(itemsToAdd) {
+                    itemsList.add(interimList[inputBestNr - 1])
+                }
+                println("-------------------------------------------------------------------")
+                println("Einkaufswagen aktualisiert:")
+                showShoppingCart(shoppingCart, kunde, account)
             }
-            println("-------------------------------------------------------------------")
-            println("Einkaufswagen aktualisiert:")
-            showShoppingCart(shoppingCart, kunde, account)
-        } else {
-            println("Zurück geht noch nicht")
-            // Zurück, oh man wie geht das? Mit Funktion menueVorher() ?
+            "2" -> homeMenueUser(shoppingCart, kunde, account)
+            else -> {
+                println("Falsche Eingabe - Nochmal von vorne: ")
+                println("...")
+                addToShoppingCart(interimList, shoppingCart, kunde, account)
+            }
+
         }
+
     }
 
 
@@ -149,7 +162,7 @@ class ShoppingCart {
             var input = readln()
             when (input) {
                 "1" -> {
-                    homeMenue(this, kunde, account)
+                    homeMenueUser(this, kunde, account)
                 }
 
                 "2" -> {
@@ -175,7 +188,7 @@ class ShoppingCart {
             println("        - L E E R -")
             println("- - -- - - -- - - -- - - -- - - -- - - -- - - -- - -")
             // Automatische Weiterleitung zu Home Menue:
-            homeMenue(shoppingCart, kunde, account)
+            homeMenueUser(shoppingCart, kunde, account)
         }
     }
 

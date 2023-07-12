@@ -39,6 +39,11 @@ var customersList: MutableList<Customer> = mutableListOf(
     testCustomer_05
 )
 
+// Liste mit Admins:
+var admoinsList: MutableList<Admin> = mutableListOf(
+    testAdmin_01, testAdmin_02
+)
+
 
 
 fun main() {
@@ -60,6 +65,8 @@ fun startSeite(){
             println("-- - -- Deine persönliche Shopping Area -- - --")
             customersLogIn()}
         "2" -> {
+            println("-- - -- Deine persönliche Shopping Area -- - --")
+            adminsLogIn()
             //TODO
         }
         else -> {
@@ -74,7 +81,7 @@ fun startSeite(){
 // Zentrale Funktion, welche den Einkaufswagen und den eingeloggten Kunden übergeben bekommt und dann
 // an entsprechende Funktionen weiterreicht, was für ein hohes Maß an Persistenz, Konsistenz und Kohärenz sorgt:
 // Das ermöglicht eine zu 100% rekursive Implementierung - die Schleifen rufen sich gegenseitig so auf, wie es der Flow erfordert und aktualisieren dabei ggf. gewünschte Datensätze (Attribute/Variablen) - in EndlosSchleife -> ohne (großartige) SCHLEIFEN !!!.
-fun homeMenue(shoppingCart: ShoppingCart, kunde: Customer, account: Account) {
+fun homeMenueUser(shoppingCart: ShoppingCart, kunde: Customer, account: Account) {
     println(
         " - -- - -- -  Home - Menue - -- - -- - " +
                 "\n 1. Einkaufskorb " +
@@ -90,12 +97,12 @@ fun homeMenue(shoppingCart: ShoppingCart, kunde: Customer, account: Account) {
         "1" -> shoppingCart.showShoppingCart(shoppingCart, kunde, account)
         "2" -> kunde.chooseBPAction(shoppingCart, kunde, account)
         "3" -> kunde.chooseCategoryAction(shoppingCart, kunde, account)
-        "4" -> custLoginArea(shoppingCart, kunde, account)
+        "4" -> account.custLoginArea(shoppingCart, kunde, account)
         "5" -> account.logOut()
         else -> {
             println("Falsche Eingabe")
             // Methode ruft sich einfach selbst nochmal auf - rekursiv - somit fängt sie sich selbst auf !!!
-            homeMenue(shoppingCart, kunde, account)
+            homeMenueUser(shoppingCart, kunde, account)
         }
     }
 }
@@ -110,35 +117,65 @@ fun customersLogIn(){
         // Es wird eine Shopping Cart (Einkaufswagen) für den Kunden erstellt (noch leer):
         var shoppingCart: ShoppingCart = ShoppingCart()
         // Die folgende Methode ist quasi das ganze Programm - objektorientiert eben:
-        homeMenue(shoppingCart, kunde, accLogin)
+        homeMenueUser(shoppingCart, kunde, accLogin)
         // Die eben erstellten 3 zetralen Objekte 'shoppingCart', 'kunde' und 'accLogin' werden von nun an, an alle zentralen Funktionen weitergegeben.
         // das ermöglicht eine zu 100% rekursive Implementierung - die Schleifen rufen sich gegenseitig so auf, wie es der Flow erfordert und aktualisieren ggf. gewünschte Datensätze (Attribute/Variablen) - in endlosSchleife-ohne (großartige) SCHLEIFEN (zumindest in der main() ) !!!.
 
     } else {
         // Nach 3 Fehlversuchen beim Log-in:
         println("Zutritt aus Sicherheitsgründen für 1 Stunde gesperrt !!!")
+        Thread.sleep(6000)    // Simulation
+        println("Sodele, die Stunde ist 'rum. Darfst wieder probieren...")
+        startSeite()
     }
 }
 
-fun custLoginArea(shoppingCart: ShoppingCart, kunde: Customer, account: Account){
-    println(" - -- - -- -  Mein Account - -- - -- - ")
-    println(" 1. Archiv: Meine Einkäufe \n 2. Aktuelle Einkaufsliste \n 3. Home Menue ( shoppen gehen ;-D ) \n 4. Log Out ")
-    var input = readln()
-    when(input){
-        "1" -> {"noch nicht fertig"}
-        "2" -> shoppingCart.showShoppingCart(shoppingCart, kunde, account)
-        "3" -> homeMenue(shoppingCart, kunde, account)
-        "4" -> account.logOut()
+
+
+fun adminsLogIn(){
+
+    // Es wird ein 'leerer' Admin erstellt:
+    var admin: Admin = Admin()
+    // Der wird im Falle des Einloggens konkretisiert und "eingeloggt"  -  sonst Sperre für 1 Stunde
+    admin = admin.logInAdmin()
+
+    // Wenn Admin sich einloggen kann (3 Versuche), kommt er ins HomeMenue, wo sich alles andere objektorientiert abspielt:
+    if (admin.logged){
+        homeMenueAdmin(admin)
+
+    } else {
+        // Nach 3 Fehlversuchen beim Log-in:
+        println("Zutritt aus Sicherheitsgründen für 1 Stunde gesperrt !!!")
+        Thread.sleep(6000)    // Simulation
+        println("Sodele, die Stunde ist 'rum. Darfst wieder probieren...")
+        startSeite()
+    }
+}
+
+fun homeMenueAdmin(admin: Admin) {
+    println(
+        " - -- - -- -  Admin - Menue - -- - -- - " +
+                "\n 1. Neues Produkt erstellen " +
+                "\n 2. Preis für ein Produkt ändern" +
+                "\n 3. Logout" +
+                "\n    Bitte Nr. eingeben: "
+    )
+    var mainMenue = readln()
+
+    when (mainMenue) {
+        "1" -> println("Neues Produkt erstellen gewählt -  noch zu machen")
+        "2" -> println("Preis für ein Produkt ändern gewählt -  noch zu machen")
+        "3" -> println("Logout  -  noch zu machen")
         else -> {
             println("Falsche Eingabe")
             // Methode ruft sich einfach selbst nochmal auf - rekursiv - somit fängt sie sich selbst auf !!!
-            custLoginArea(shoppingCart, kunde, account)
+            homeMenueAdmin(admin)
         }
     }
 }
 
 
-fun adminsLogIn(){
 
 
-}
+
+

@@ -1,6 +1,7 @@
 
 
-
+var testAdmin_01: Admin = Admin(1, "Gautam Kutrapali", "gau_pali@yahoo.in", "ganesha123")
+var testAdmin_02: Admin = Admin(2, "Marusha Dimitrova", "MarDi@djs.tv", "suoergeil123")
 
 
 

@@ -4,6 +4,9 @@ class Account {
     // Zentrales Attribut. Wird erst nach Instaziierung gesetted und entscheidet (in der Main) über den weiteren Flow
     var logged: Boolean = false
 
+    var purchases: MutableList<Order> = mutableListOf()
+
+
     // Liste mit Passwörtern aller User - mutable, flexibel und bearbeitbar
     // (inkl. "Bestandskunden")
     var passWordDB: MutableMap<String, String> = mutableMapOf(
@@ -14,6 +17,39 @@ class Account {
         "epry_Diamond@gmail.com" to "masturabiato12345"
     )
 
+
+    fun custLoginArea(shoppingCart: ShoppingCart, kunde: Customer, account: Account){
+        println(" - -- - -- -  Mein Account - -- - -- - ")
+        println(" 1. Archiv: Meine Einkäufe \n 2. Aktuelle Einkaufsliste \n 3. Home Menue ( shoppen gehen ;-D ) \n 4. Log Out ")
+        var input = readln()
+        when(input){
+            "1" -> account.showOrders(shoppingCart, kunde, account)
+            "2" -> shoppingCart.showShoppingCart(shoppingCart, kunde, account)
+            "3" -> homeMenueUser(shoppingCart, kunde, account)
+            "4" -> account.logOut()
+            else -> {
+                println("Falsche Eingabe")
+                // Methode ruft sich einfach selbst nochmal auf - rekursiv - somit fängt sie sich selbst auf !!!
+                custLoginArea(shoppingCart, kunde, account)
+            }
+        }
+    }
+
+
+    fun showOrders(shoppingCart: ShoppingCart, kunde: Customer, account: Account){
+        println(" -- -- Übersicht aller Deiner Einkäufe -- -- ")
+        for (it in purchases){
+            it.showOrderDetails(account)
+            // TODO
+        }
+        println("Optionen: \n 1. Zurück zu 'Mein Account' \n 2. Home")
+        var input = readln()
+        when(input){
+            "1" -> custLoginArea(shoppingCart, kunde, account)
+            "2" -> homeMenueUser(shoppingCart, kunde, account)
+
+        }
+    }
 
     fun logOut(){
         this.logged = false

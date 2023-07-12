@@ -6,7 +6,6 @@ class Customer() {
     var password: String = ""
     var saldo: Double = 0.0
 
-    var purchases: MutableList<String> = mutableListOf()
 
     constructor(customNr: Int, name: String, adress: String, email: String, password: String, saldo: Double) : this() {
         this.customNr = customNr
@@ -40,10 +39,13 @@ class Customer() {
         )
         var inputAction = readln()
         when (inputAction) {
-            "1" -> homeMenue(shoppingCart, kunde, account)
+            "1" -> homeMenueUser(shoppingCart, kunde, account)
             "2" -> println("Alphabetisch sortieren")
             "3" -> {shoppingCart.addToShoppingCart(interimList, shoppingCart, kunde, account) } // Hier wird abgefragt wieviel Exemplare des Produkts in den Einkaufswagen kommen und werden dann entsprechend hinzugefügt
-            else -> println("Falsche Eingabe")
+            else ->{
+                println("Falsche Eingabe")
+                finalProductSelection(productList, shoppingCart, kunde, account)
+            }
         }
         //return interimList
     }
@@ -111,7 +113,7 @@ class Customer() {
                 finalProductSelection(abstractProducts, shoppingCart, kunde, account)
             }
 
-            "6" -> homeMenue(shoppingCart, kunde, account)
+            "6" -> homeMenueUser(shoppingCart, kunde, account)
             else -> {
                 println("Falsche Eingabe")
                 // Bei falscher Eingabe ruft sich die Funktion einfach selbst nochmal auf - rekursiv
@@ -160,7 +162,7 @@ class Customer() {
                 finalProductSelection(abstractProducts, shoppingCart, kunde, account)
             }
             // rekursiver aufruf der Methode homeMenue(s. u.)
-            "7" -> homeMenue(shoppingCart, kunde, account)
+            "7" -> homeMenueUser(shoppingCart, kunde, account)
             else -> {
                 println("Falsche Eingabe")
                 // Bei falscher Eingabe ruft sich die Funktion einfach selbst nochmal auf - rekursiv
