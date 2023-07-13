@@ -162,7 +162,8 @@ fun startSeite() {
 }
 
 
-// Es folgt die zentrale Funktion, welche den Einkaufswagen und den eingeloggten Kunden übergeben bekommt und dann
+
+// Es folgt die zentrale Funktion, welche den Einkaufswagen und den eingeloggten Kunden erstellt und dann
 // an entsprechende Funktionen weiterreicht, was für ein hohes Maß an Persistenz, Konsistenz und Kohärenz sorgt:
 // Das ermöglicht eine zu 100% rekursive Implementierung - die Schleifen rufen sich gegenseitig so auf, wie es der Flow erfordert und aktualisieren dabei ggf. gewünschte Datensätze (Attribute/Variablen) - in EndlosSchleife -> ohne (großartige) SCHLEIFEN !!!.
 fun customersLogIn() {
