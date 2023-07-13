@@ -123,17 +123,35 @@ class ShoppingCart {
         println("Deine Auswahl:")
         interimList[inputBestNr - 1].showEssentials()    // -1, weil Bestellnummern bei 1 anfangen aber der Index bei 0 anfängt
         println("Möchtest Du das in den Warenkorb legen? \n - 1. Ja \n - 2. Nein(Home Menue)")
+
         var inputCart = readln()
         when(inputCart){
             "1" -> {
-                println("Wie viele Exemplare sollen in den Einkaufskorb? Bitte Anzahl eingeben: ")
+                println(" . . . ")
+                Thread.sleep(1500)
+                println(" . . . ")
+                println("Wie viele Exemplare sollen in den Warenkorb? Bitte Anzahl eingeben: ")
                 var itemsToAdd = readln().toInt()
-                repeat(itemsToAdd) {
-                    itemsList.add(interimList[inputBestNr - 1])
+                // !!! Überprüfung, ob genug auf Lager ist !!! Wenn ja,:
+                if (itemsToAdd <= interimList[inputBestNr - 1].inStock){
+                    // Hier wird der Artikel in den Einkaufswagen gepackt, so oft wie gewünscht)
+                    repeat(itemsToAdd) {
+                        itemsList.add(interimList[inputBestNr - 1])
+                    }
+                    println("-------------------------------------------------------------------")
+                    println("Warenkorb aktualisiert:")
+                    showShoppingCart(shoppingCart, kunde, account)
+
+                } else {
+                    println(" . . . ")
+                    Thread.sleep(1500)
+                    println(" . . . ")
+                    println("Leider nicht genügend Ware im Lager.")
+                    println("Try again ...")
+                    Thread.sleep(1500)
+                    println(" . . . ")
+                    addToShoppingCart(interimList, shoppingCart, kunde, account)
                 }
-                println("-------------------------------------------------------------------")
-                println("Einkaufswagen aktualisiert:")
-                showShoppingCart(shoppingCart, kunde, account)
             }
             "2" -> kunde.homeMenueUser(shoppingCart, kunde, account)
             else -> {
