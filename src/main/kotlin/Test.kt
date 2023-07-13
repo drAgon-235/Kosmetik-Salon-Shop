@@ -5,8 +5,20 @@ fun main(){
 
 
 
+var kunde = Customer(6, "Alfred", "Sommerstrasse 23", "email@gmx.de", "passwort123", 0.0 )
 
+    println("Vor dem Sortieren:")
+    for (it in soaps){
+        it.showEssentials()
+    }
 
+    kunde.sortPriceAsc(soaps)
+
+    println()
+    println("Nach dem Sortieren:")
+    for (it in soaps){
+        it.showEssentials()
+    }
 
 
     /*

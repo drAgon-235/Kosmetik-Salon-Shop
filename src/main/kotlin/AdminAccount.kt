@@ -15,41 +15,13 @@ class AdminAccount {
         when (mainMenue) {
             "1" -> admin.createBP(admin, adminAccount)
             "2" -> admin.createCoAdmin(admin, adminAccount)
-            "3" -> adminAccount.logOut()
+            "3" -> adminAccount.logOutA()
             else -> {
                 println("Falsche Eingabe")
                 // Methode ruft sich einfach selbst nochmal auf - rekursiv - somit fängt sie sich selbst auf !!!
                 homeMenueAd(admin, adminAccount)
             }
         }
-    }
-
-
-    fun logOut(){
-        this.logged = false
-        println("--------------- - ---------------- - ---------------- - ------------")
-        Thread.sleep(1500)
-        println("                - Du hast Dich erfolgreich ausgeloggt - ")
-        Thread.sleep(1500)
-        startSeite()
-    }
-
-
-    fun logInA(email: String, password: String): Boolean {
-        var bool: Boolean = false
-        //Check ob User existiert - sollte unbedingt zuerst erfolgen:
-        if (email in passWordDBAdmin.keys) {
-            //Erst dann kommt Passwort-Check:
-            if (password == passWordDBAdmin[email]) {
-                // Wenn das eingegebene PW auch mit dem hinterlegten Passwort von 'name' übereinstimmt, wird auf 'true' gesetzt; ansonsten ist und bleibt der login defaultmäßig 'false'
-                bool = true
-                this.logged = true
-            }
-        } else {
-            // Info-Meldung, wenn User nicht in DB: (optional, (kann gerne aus Sicherheitsgründen weggelassen werden))
-            println("Admin unbekannt")
-        }
-        return bool
     }
 
 
@@ -75,7 +47,8 @@ class AdminAccount {
         var logInBool: Boolean = false
 
         do {
-            // Überprüfung, ob User überhaupt existiert - wenn Fehler bei der eingabe --> gewünschte Exception
+            // Überprüfung, ob Admin überhaupt existiert - wenn Fehler bei der eingabe --> gewünschte Exception -> wird unten abgefangen
+            try{
             if (checkAdminExistence(inhName)) {
                 println("Bitte Passwort eingeben:")
                 val pw = readln()
@@ -113,11 +86,42 @@ class AdminAccount {
             } else {
                 // Es wird evtl. die "Kontoinhaber unbekannt - Exception" ausgeführt
                 //println("User unbekannt")
+            }}catch (e: Exception){
+                println(" Unbekannter Admin - bitte nochmal probieren")
+                logInAdmin()
             }
             // es geht weiter und evtl. von vorne, bis 3 mal das falsche PW eingegeben wurde:
         } while (counter > 0)
 
         return loggedAdmin
+    }
+
+
+    fun logInA(email: String, password: String): Boolean {
+        var bool: Boolean = false
+        //Check ob User existiert - sollte unbedingt zuerst erfolgen:
+        if (email in passWordDBAdmin.keys) {
+            //Erst dann kommt Passwort-Check:
+            if (password == passWordDBAdmin[email]) {
+                // Wenn das eingegebene PW auch mit dem hinterlegten Passwort von 'name' übereinstimmt, wird auf 'true' gesetzt; ansonsten ist und bleibt der login defaultmäßig 'false'
+                bool = true
+                this.logged = true
+            }
+        } else {
+            // Info-Meldung, wenn User nicht in DB: (optional, (kann gerne aus Sicherheitsgründen weggelassen werden))
+            println("Admin unbekannt")
+        }
+        return bool
+    }
+
+
+    fun logOutA(){
+        this.logged = false
+        println("--------------- - ---------------- - ---------------- - ------------")
+        Thread.sleep(1500)
+        println("                - Du hast Dich erfolgreich ausgeloggt - ")
+        Thread.sleep(1500)
+        startSeite()
     }
 
 

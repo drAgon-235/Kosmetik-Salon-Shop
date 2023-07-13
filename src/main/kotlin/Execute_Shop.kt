@@ -55,7 +55,16 @@ var bathAddits: MutableList<BeautyProduct> = mutableListOf(
 )
 
 
-// Es werden nur die drei folgenden Listen direkt vom Programm benutzt:
+
+
+
+
+
+
+
+
+
+// Es werden nur die folgenden 5 Listen direkt vom Programm benutzt:
 // alle Produkte (Eine Liste von Listen):
 var allBPs: MutableList<MutableList<BeautyProduct>> = mutableListOf(
     abstractProducts, soaps, cremes, peelings, nailPolishes, bathAddits
@@ -80,6 +89,9 @@ var passWordDB: MutableMap<String, String> = mutableMapOf(
 )
 
 
+
+// BTW alle Listen oben könnten leer sein, wenn unser Programm anfängt, man kann sie im Programm füllen
+// Aber mindestens ein Admin muss vorher festgelegt werden:
 // Liste mit Admins:
 var adminsList: MutableList<Admin> = mutableListOf(
     testAdmin_01, testAdmin_02
@@ -98,14 +110,18 @@ fun main() {
 
 
 
+        // Das ist das ganze Programm ...
 
-
+        // objektorientiert eben ;-D
 
 
 
     startSeite()
 
 
+        // Schleifen sind für Anfänger
+
+        // REKURSION lautet die Parole
 
 
 
@@ -161,13 +177,17 @@ fun customersLogIn() {
     if (accLogin.logged) {
         // Es wird eine Shopping Cart (Einkaufswagen) für den Kunden erstellt (noch leer):
         var shoppingCart: ShoppingCart = ShoppingCart()
-        // Die folgende Methode ist quasi das ganze Programm - objektorientiert eben:
+        // Die folgende Methode ist quasi das ganze Programm für den Kunden - objektorientiert eben:
         kunde.homeMenueUser(shoppingCart, kunde, accLogin)
         // Die eben erstellten 3 zetralen Objekte 'shoppingCart', 'kunde' und 'accLogin' werden von nun an, an alle zentralen Funktionen weitergegeben.
-        // das ermöglicht eine zu 100% rekursive Implementierung - die Schleifen rufen sich gegenseitig so auf, wie es der Flow erfordert und aktualisieren ggf. gewünschte Datensätze (Attribute/Variablen) - in endlosSchleife-ohne (großartige) SCHLEIFEN (zumindest in der main() ) !!!.
+        // das ermöglicht eine zu 100% rekursive Implementierung - die Schleifen rufen sich gegenseitig so auf, wie es der Flow erfordert und aktualisieren ggf. gewünschte Datensätze (Attribute/Variablen) - in endlosSchleife-ohne jegliche SCHLEIFEN (zumindest in der main() ) !!!.
 
     } else {
+        println(" . . .")
+        Thread.sleep(1500)
         println("Irgendwas ist schiefgelaufen - zurück zur Startseite")
+        Thread.sleep(1500)
+        println(" . . .")
         startSeite()
     }
 }
@@ -184,7 +204,11 @@ fun adminsLogIn() {
         adminAcc.homeMenueAd(admin, adminAcc)
 
     } else {
+        println(" . . .")
+        Thread.sleep(1500)
         println("Irgendwas ist schiefgelaufen - zurück zur Startseite")
+        Thread.sleep(1500)
+        println(" . . .")
         startSeite()
     }
 }
@@ -253,7 +277,11 @@ fun createNewCustomer() {
 
         "3" -> startSeite()
         else -> {
+            println(" . . .")
+            Thread.sleep(1500)
             println("Etwas ist schief gelaufen - nochmal von vorne bitte:")
+            Thread.sleep(1500)
+            println(" . . .")
             createNewCustomer()
         }
     }

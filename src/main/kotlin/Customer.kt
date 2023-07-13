@@ -42,7 +42,6 @@ class Customer() {
         }
     }
 
-
     // My Basic Function for "LAST Choice" with actual ID for adding to ShoppingCart(wird mal chooseProduct(allProducts: MutableList<BeautyProduct>) heissen)
     fun finalProductSelection(productList: MutableList<BeautyProduct>, shoppingCart: ShoppingCart, kunde: Customer, account: CustomerAccount){
         var localID: Int = 1
@@ -59,13 +58,13 @@ class Customer() {
         }
         println(
             "Aktion auswählen: \n  1. Home" +
-                    "\n  2. Sortieren nach Preis klicke " +
-                    "\n  3. ein Produkt zum Einkaufskorb hinzuzufügen "
+                    "\n  2. Sortieren nach Preis (aufsteigend) " +
+                    "\n  3. Produkt zum Einkaufskorb hinzuzufügen "
         )
         var inputAction = readln()
         when (inputAction) {
             "1" -> homeMenueUser(shoppingCart, kunde, account)
-            "2" -> println("Alphabetisch sortieren")
+            "2" -> finalProductSelection(sortPriceAsc(interimList), shoppingCart, kunde, account)
             "3" -> {shoppingCart.addToShoppingCart(interimList, shoppingCart, kunde, account) } // Hier wird abgefragt wieviel Exemplare des Produkts in den Einkaufswagen kommen und werden dann entsprechend hinzugefügt
             else ->{
                 println("Falsche Eingabe")
@@ -75,6 +74,7 @@ class Customer() {
         //return interimList
     }
 
+    // Da wir in dieser Ansicht ja zuerst implizit nach Kategorie Sortieren müssen, lassen wir das von einer Funktion erledigen:
     fun filterCategory(category: Category): MutableList<BeautyProduct> {
         var catList = mutableListOf<BeautyProduct>()
         for (BPlist in allBPs){
@@ -147,7 +147,6 @@ class Customer() {
 
     }
 
-
     fun chooseBPAction(shoppingCart: ShoppingCart, kunde: Customer, account: CustomerAccount) {
         println("Beauty Produkte ausgewählt")
         println(
@@ -196,8 +195,11 @@ class Customer() {
         }
     }
 
-
-
+    fun sortPriceAsc(productList: MutableList<BeautyProduct> ): MutableList<BeautyProduct> {
+        var listWorkingCopy: MutableList<BeautyProduct> = productList
+        listWorkingCopy.sortBy { listWorkingCopy -> listWorkingCopy.price }
+        return listWorkingCopy
+    }
 
 
 }

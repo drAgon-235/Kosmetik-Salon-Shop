@@ -43,15 +43,6 @@ class CustomerAccount {
     }
 
 
-    fun logOutUser() {
-        this.logged = false
-        println("--------------- - ---------------- - ---------------- - ------------")
-        Thread.sleep(1500)
-        println("                - Du hast Dich erfolgreich ausgeloggt - ")
-        Thread.sleep(1500)
-        startSeite()
-    }
-
 
     fun checkPW(email: String, password: String): Boolean {
         var bool: Boolean = false
@@ -95,7 +86,8 @@ class CustomerAccount {
         var logInBool: Boolean = false
 
         do {
-            // Überprüfung, ob User überhaupt existiert - wenn Fehler bei der eingabe --> gewünschte Exception
+            // Überprüfung, ob User überhaupt existiert - wenn Fehler bei der eingabe --> gewünschte Exception -> wird unten abgefangen
+            try{
             if (checkUserExistence(inhName)) {
                 println("Bitte Passwort eingeben:")
                 val pw = readln()
@@ -138,12 +130,24 @@ class CustomerAccount {
                 // Falls der Kontoinhaber nicht existiert, wird eine vorher definierte Exception ausgeschmissen:
             } else {
                 // Es wird evtl. die "Kontoinhaber unbekannt - Exception" ausgeführt
-                //println("User unbekannt")
+            }}catch (e: Exception){
+                println("User unbekannt - bitte nochmal probieren:")
+                logInUser()   // Und wieder eine Abfangrekursion, diesmal mit Ansage
             }
             // es geht weiter und evtl. von vorne, bis 3 mal das falsche PW eingegeben wurde:
         } while (counter > 0)
 
         return loggedCoustomer
+    }
+
+
+    fun logOutUser() {
+        this.logged = false
+        println("--------------- - ---------------- - ---------------- - ------------")
+        Thread.sleep(1500)
+        println("                - Du hast Dich erfolgreich ausgeloggt - ")
+        Thread.sleep(1500)
+        startSeite()
     }
 
 

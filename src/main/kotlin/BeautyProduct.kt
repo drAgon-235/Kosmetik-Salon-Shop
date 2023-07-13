@@ -37,6 +37,7 @@ open class BeautyProduct() {
     }
 
 
+    // For Future Projects
     fun showDetails(){
         //println("- - - - - - - - - - - - - - - ")
         println("${this.brand} - ${this.name}")
@@ -47,8 +48,4 @@ open class BeautyProduct() {
         println("- - - - - - - - - - - - - - - ")
     }
 
-    fun addToCart() {
-        // TODO
-
-    }
 }
