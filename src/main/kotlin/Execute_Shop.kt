@@ -61,7 +61,7 @@ var bathAddits: MutableList<BeautyProduct> = mutableListOf(
 
 
 // Es werden nur die folgenden 5 Listen direkt vom Programm benutzt:
-// alle Produkte (Eine Liste von Listen):
+// alle Produkte (Eine Liste von Listen - auch eine Form von Datenvererbung und Weiterreichung, hin UND her):
 var allBPs: MutableList<MutableList<BeautyProduct>> = mutableListOf(
     abstractProducts, soaps, cremes, peelings, nailPolishes, bathAddits
 )
