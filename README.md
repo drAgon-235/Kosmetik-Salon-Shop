@@ -15,4 +15,9 @@ im Rahmen meiner Fortbildung zum App-Entwickler.
 - Das ganze sollte natürlich möglichst objektorientiert programmiert werden. 
 Im Optimalfall soll nur eine Methode in der main() stehen, die alles ausführt.
 
+---
 Hierzu wurde folgendes Klassendiagramm erstellt:
+
+![Klassendiagramm](Klassendiagramm.png)
+
+kjflsfjslkfjslkfjsdlkf
