@@ -87,12 +87,17 @@ Dort befindet sich auch die Pseudo-DB mit dem Kundenstamm.
 All diese Datensätze füllen die Produktlisten (globale Variablen in Execute_Shop.kt)
  sowie die Listen mit Usern/Admins und ihren Passwörtern (aus Sicherheitsgründen getrennt).
 
+Es wird bei jeder Produktbestellung überprüft, ob genügend Artikel im Lager sind.
+
+Der Warenkorb wird erst nach der Bezahlung automatisch geleert, 
+er kann aber auch explizit vom User gelöscht werden.
+
 Die Systematik hinter der Namenskonvention der einzelnen Objekte ist wohl offensichtlich:
 Erst ein Buchstabe oder mehr (z.B. 'S' für Soap) dann ein Underscore (_) gefolgt von einer laufenden Nummer.
 
 Entsprechend dieser Logik wird von der Funktion Admin.newBpId() eine neue ID generiert,
 welche auch immer eine Zahl höher liegt, als die letzte (höchste). 
-Das brauchen wir für die Erstellung neuer Produkte.
+Das brauchen wir für die Erstellung neuer Produkte durch den Admin/Manager. 
 
 
 ---

@@ -103,11 +103,10 @@ class ShoppingCart {
     }
 
 
-    fun sumCart(): Double {
+    fun sumCart() {
         for (it in itemsList) {
             priceTotal += it.price
         }
-        return priceTotal
     }
 
 
@@ -139,6 +138,7 @@ class ShoppingCart {
                         itemsList.add(interimList[inputBestNr - 1])
                     }
                     println("-------------------------------------------------------------------")
+                    sumCart()
                     println("Warenkorb aktualisiert:")
                     showShoppingCart(shoppingCart, kunde, account)
 
@@ -166,7 +166,6 @@ class ShoppingCart {
 
 
     fun showShoppingCart(shoppingCart: ShoppingCart, kunde: Customer, account: CustomerAccount) {
-        // Mehrere identische Artikel werden alle einzeln aufgeführt... (noch - BONUS-Aufgabe)
         println(" -- -- Einkaufswagen -- -- ")
         var postenID = 1
         if (itemsList.isNotEmpty()) {
@@ -175,7 +174,7 @@ class ShoppingCart {
                 it.showEssentials()
                 postenID++
             }
-            println("Summe:  ${sumCart()} €")
+            println("Summe:  ${priceTotal} €")
             println("- - - - - - - - - - - - - - - - -")
             println("Möchtest Du: \n 1. Weiter Einkaufen (Speichern & Home)  \n 2. Bezahlen und kaufen  \n 3. Einkaufswagen leeren")
             var input = readln()
@@ -215,6 +214,7 @@ class ShoppingCart {
     fun flushShoppingCart() {
         itemsList.removeAll(itemsList)
     }
+
 
 
     // BONUS: Funktion die einzelne ausgewählte elemente entfernt:
