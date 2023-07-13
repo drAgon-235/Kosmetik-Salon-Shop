@@ -4,6 +4,7 @@ class BP_NailPolish() : BeautyProduct() {
 
     // Konstruktor ohne 'description' (die braucht ein Nagellack nicht, der hat 'colour'
     constructor(
+        id: String,
         category: Category,
         name: String,
         brand: Brands,
@@ -11,6 +12,7 @@ class BP_NailPolish() : BeautyProduct() {
         colour: String,
         inStock: Int
     ) : this() {
+        this.id = id
         this.category = Category.HAENDE
         this.name = name
         this.brand = brand
@@ -27,6 +29,7 @@ class BP_NailPolish() : BeautyProduct() {
         println("Farbe: ${colour}")
         println("Preis: ${price} €")
         println("Auf Lager: ${this.inStock} Stück")
+        println("Artikel-Nr: ${this.id}")
         println("- - - - - - - - - - - - - - - ")
     }
 

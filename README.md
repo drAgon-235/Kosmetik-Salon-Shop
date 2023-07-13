@@ -20,7 +20,7 @@ Im Optimalfall soll nur eine Methode in der main() stehen, die alles ausführt.
 ---
 Hierzu wurde folgendes Klassendiagramm erstellt:
 
-![Klassendiagramm](Klassendiagramm.png)
+![Klassendiagramm](ClassDiagram.png)
 
 ---
 

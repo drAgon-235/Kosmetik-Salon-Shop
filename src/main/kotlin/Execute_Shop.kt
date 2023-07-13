@@ -60,10 +60,6 @@ var bathAddits: MutableList<BeautyProduct> = mutableListOf(
 
 
 
-
-
-
-
 // Es werden nur die folgenden 5 Listen direkt vom Programm benutzt:
 // alle Produkte (Eine Liste von Listen):
 var allBPs: MutableList<MutableList<BeautyProduct>> = mutableListOf(
@@ -121,7 +117,7 @@ fun main() {
 
         // Schleifen sind für Anfänger
 
-        // REKURSION lautet die Parole
+        // REKURSION lautet die Parole ;-)
 
 
 

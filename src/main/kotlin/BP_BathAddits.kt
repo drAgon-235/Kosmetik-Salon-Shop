@@ -4,6 +4,7 @@ class BP_BathAddits() : BeautyProduct() {
     var weight: Int = 0    // in g  (Gramm)
 
     constructor(
+        id: String,
         category: Category,
         name: String,
         brand: Brands,
@@ -12,6 +13,7 @@ class BP_BathAddits() : BeautyProduct() {
         weight: Int,
         inStock: Int
     ) : this() {
+        this.id = id
         this.category = category
         this.name = name
         this.brand = brand
@@ -30,6 +32,7 @@ class BP_BathAddits() : BeautyProduct() {
             println("Inhalt: ${this.volume} ml")
         println("Preis: ${this.price} €")
         println("Auf Lager: ${this.inStock} Stück")
+        println("Artikel-Nr: ${this.id}")
         println("- - - - - - - - - - - - - - - ")
     }
 

@@ -3,6 +3,7 @@ class BP_Creme() : BeautyProduct() {
     var volume: Int = 0    // in ml (Milliliter)
 
     constructor(
+        id: String,
         category: Category,
         name: String,
         brand: Brands,
@@ -10,6 +11,7 @@ class BP_Creme() : BeautyProduct() {
         volume: Int,
         inStock: Int
     ) : this() {
+        this.id = id
         this.category = category
         this.name = name
         this.brand = brand
@@ -25,6 +27,7 @@ class BP_Creme() : BeautyProduct() {
         println("Inhalt: ${this.volume} ml")
         println("Preis: ${this.price} €")
         println("Auf Lager: ${this.inStock} Stück")
+        println("Artikel-Nr: ${this.id}")
         println("- - - - - - - - - - - - - - - ")
     }
 

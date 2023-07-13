@@ -14,9 +14,56 @@ class Admin() {
     }
 
 
+    fun deleteBP(admin: Admin, adminAccount: AdminAccount) {
+        println(" - - - Produkt auslisten - - -")
+        println("Bitte die Artikel-ID-Nr. eingeben:")
+        var idToDelete = readln()
+        var bpFound: Boolean = false
+        // Hier wandere ich durch die Produktlisten, die in der allBPs-Liste stecken und suche das zu löschende Objekt anhand der eingegebenen 'id':
+        for (e in allBPs){
+            for (it in e){
+                if (it.id == idToDelete){
+                    var index = e.indexOf(it)
+                    // UNd hier wird es aus der Produktliste gelöscht:
+                    e.removeAt(index )
+                    bpFound = true
+                    break
+                }
+            }
+        }
+
+        if (bpFound){
+            Thread.sleep(1000)
+            println(". . . ")
+            Thread.sleep(1500)
+            println()
+            println("Das Produkt mit der ID: ${idToDelete} wurde erfolgreich ausgelistet.")
+            Thread.sleep(1000)
+            println(" . . . " )
+            Thread.sleep(1000)
+            adminAccount.homeMenueAd(admin, adminAccount)
+        }else{
+            Thread.sleep(1000)
+            println(". . . ")
+            Thread.sleep(1000)
+            println()
+            println("Die ID: ${idToDelete} wurde nicht gefunden.")
+            println("Nochmal probieren? \n 1. Ja bitte, habe mich vertippt \n 2. Nein, zurück bitte")
+
+            var input = readln()
+            when(input){
+                "1" -> deleteBP(admin, adminAccount)
+                "2" -> adminAccount.homeMenueAd(admin, adminAccount)
+                else -> adminAccount.homeMenueAd(admin, adminAccount)
+            }
+        }
+    }
+
+
     // Folgende Funktion erstellt ein BeautyProduct und fügt es automatisch in die entsprechende Artikelliste ein, welche sofort aktualisiert wird und sofort durch User genutzt werden kann:
     fun createBP(admin: Admin, adminAccount: AdminAccount) {
         var newBP: BeautyProduct = BeautyProduct()
+
 
         println("Zuerst wählen Sie bitte die Herstellerfirma: \n 1. AFON \n 2. NIFEA \n 3. No name (oder andere)")
         var producer = readln()
@@ -44,6 +91,7 @@ class Admin() {
         println("Nun Anfangslagerbestand eingeben (ggf. 0):")
         var stock = readln().toInt()
         println()
+
 
 
         println(
@@ -87,7 +135,7 @@ class Admin() {
                 var fragrance = readln()
                 println("Bei Flüssigseifen oder Gels bitte noch den Inhalt in ml eingeben (ansonsten 0 eingeben): ")
                 var volume = readln().toInt()
-                newBP = BP_Soap(cat, bpName, brand, price, fragrance, volume, stock)
+                newBP = BP_Soap(newBpId(soaps), cat, bpName, brand, price, fragrance, volume, stock)
                 soaps.add(newBP)
                 Thread.sleep(2000)
             }
@@ -95,7 +143,7 @@ class Admin() {
             "2" -> {
                 println("Bei Crèmes bitte noch den Inhalt in ml eingeben: ")
                 var volumeCreme = readln().toInt()
-                newBP = BP_Creme(cat, bpName, brand, price, volumeCreme, stock)
+                newBP = BP_Creme(newBpId(cremes), cat, bpName, brand, price, volumeCreme, stock)
                 cremes.add(newBP)
                 Thread.sleep(2000)
             }
@@ -103,7 +151,7 @@ class Admin() {
             "3" -> {
                 println("Bei Peelings bitte noch den Inhalt in ml eingeben: ")
                 var volumePeel = readln().toInt()
-                newBP = BP_Peeling(cat, bpName, brand, price, volumePeel, stock)
+                newBP = BP_Peeling(newBpId(peelings), cat, bpName, brand, price, volumePeel, stock)
                 peelings.add(newBP)
                 Thread.sleep(2000)
             }
@@ -113,7 +161,7 @@ class Admin() {
                 var volumeBA = readln().toInt()
                 println("Bei Badezusätzen bitte noch das Gewicht in g eingeben (ggf. 0): ")
                 var weightBA = readln().toInt()
-                newBP = BP_BathAddits(cat, bpName, brand, price, volumeBA, weightBA, stock)
+                newBP = BP_BathAddits(newBpId(bathAddits), cat, bpName, brand, price, volumeBA, weightBA, stock)
                 bathAddits.add(newBP)
                 Thread.sleep(2000)
             }
@@ -121,14 +169,14 @@ class Admin() {
             "5" -> {
                 println("Bei Nagellacken bitte noch die Farbe eingeben: ")
                 var color = readln()
-                newBP = BP_NailPolish(cat, bpName, brand, price, color, stock)
+                newBP = BP_NailPolish(newBpId(nailPolishes), cat, bpName, brand, price, color, stock)
                 nailPolishes.add(newBP)
                 Thread.sleep(2000)
             }
 
             "6" -> {
                 println("Ein Standard Beauty Produkt bedarf keiner weiteren Eingaben ...")
-                newBP = BeautyProduct(cat, bpName, brand, price, stock)
+                newBP = BeautyProduct(newBpId(abstractProducts), cat, bpName, brand, price, stock)
                 abstractProducts.add(newBP)
                 Thread.sleep(2000)
             }
@@ -165,6 +213,20 @@ class Admin() {
         // check OK
          */
     }
+
+
+    // Diese geniale Funktion generiert neue Produkt ID, die definitiv noch nicht existiert und sukzessive Nummerierung fortsetzt
+    // Und das unter Beibehaltung der Namenskonvention für die jeweilige Produktliste (mit .split und viel Hirnschmalz) !!! :
+    fun newBpId(bp_List: MutableList<BeautyProduct>): String {
+        var idString = bp_List[bp_List.lastIndex].id
+        var idList: List<String> = idString.split('_')
+        var newID = idList[1].toInt() + 1
+        var newIDString = idList[0] + "_" + newID.toString()
+
+        return newIDString
+    }
+
+
 
     // Folgende Funktion erstellt einen neuen Admin, der sofort nach dem Ausloggen des alten loslegen kann:
     fun createCoAdmin(admin: Admin, adminAccount: AdminAccount) {
@@ -218,8 +280,4 @@ class Admin() {
     }
 
 
-    fun changePrice() {
-        // TODO
-
-    }
 }

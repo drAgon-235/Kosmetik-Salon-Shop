@@ -3,8 +3,16 @@ import java.time.LocalDate
 fun main(){
 // Chronologisch - jüngster Test ganz oben:
 
-
-
+    var test = soaps[soaps.lastIndex].id
+    println(test)
+    var testlist: List<String> = test.split('_')
+    var newID = testlist[1].toInt() + 1
+    println(testlist[0])
+    println(newID)
+    var newIDString = testlist[0] + "_" + newID.toString()
+    println(newIDString)
+/*
+// Test Funktion sortPrice():
 var kunde = Customer(6, "Alfred", "Sommerstrasse 23", "email@gmx.de", "passwort123", 0.0 )
 
     println("Vor dem Sortieren:")
@@ -19,6 +27,10 @@ var kunde = Customer(6, "Alfred", "Sommerstrasse 23", "email@gmx.de", "passwort1
     for (it in soaps){
         it.showEssentials()
     }
+
+ */
+
+
 
 
     /*

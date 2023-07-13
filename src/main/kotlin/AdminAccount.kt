@@ -6,16 +6,18 @@ class AdminAccount {
         println(
             " - -- - -- -  Admin - Menue - -- - -- - " +
                     "\n 1. Neues Produkt erstellen " +
-                    "\n 2. Neuen Admin-Kollegen erstellen" +
-                    "\n 3. Logout" +
+                    "\n 2. Produkt löschen " +
+                    "\n 3. Neuen Admin-Kollegen erstellen" +
+                    "\n 4. Logout" +
                     "\n    Bitte Nr. eingeben: "
         )
         var mainMenue = readln()
 
         when (mainMenue) {
             "1" -> admin.createBP(admin, adminAccount)
-            "2" -> admin.createCoAdmin(admin, adminAccount)
-            "3" -> adminAccount.logOutA()
+            "2" -> admin.deleteBP(admin, adminAccount)
+            "3" -> admin.createCoAdmin(admin, adminAccount)
+            "4" -> adminAccount.logOutA()
             else -> {
                 println("Falsche Eingabe")
                 // Methode ruft sich einfach selbst nochmal auf - rekursiv - somit fängt sie sich selbst auf !!!
