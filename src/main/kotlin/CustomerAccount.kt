@@ -66,7 +66,7 @@ class CustomerAccount {
         if (accOwner in passWordDB.keys)
             return true
         else
-            throw Exception("- - User unbekannt - -")
+            throw Exception("- - User unbekannt Exception - -")
         //is klar, ne
     }
 
@@ -123,14 +123,11 @@ class CustomerAccount {
                                     "\nAnzeige ist raus... "
                         )
                         break
-                    } else {
-                        // Just Chill
                     }
                 }
                 // Falls der Kontoinhaber nicht existiert, wird eine vorher definierte Exception ausgeschmissen:
-            } else {
-                // Es wird evtl. die "Kontoinhaber unbekannt - Exception" ausgeführt
-            }}catch (e: Exception){
+            }
+            }catch (e: Exception){
                 println("User unbekannt - bitte nochmal probieren:")
                 logInUser()   // Und wieder eine Abfangrekursion, diesmal mit Ansage
             }

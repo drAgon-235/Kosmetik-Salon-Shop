@@ -103,9 +103,6 @@ var passWordDBAdmin: MutableMap<String, String> = mutableMapOf(
 fun main() {
 
 
-
-
-
         // Das ist das ganze Programm ...
 
         // objektorientiert eben ;-D
@@ -113,17 +110,6 @@ fun main() {
 
 
     startSeite()
-
-
-        // Schleifen sind für Anfänger
-
-        // REKURSION lautet die Parole ;-)
-
-
-
-
-
-
 
 
 

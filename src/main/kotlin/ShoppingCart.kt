@@ -104,6 +104,9 @@ class ShoppingCart {
 
 
     fun sumCart() {
+        // Wenn ein tlw. gefüllter Warenkorb zusätzliche Produkte bekommt,
+        //wird der gesamte KOrb nochmal von 0 summiert:
+        priceTotal = 0.0
         for (it in itemsList) {
             priceTotal += it.price
         }
